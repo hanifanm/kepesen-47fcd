@@ -1,0 +1,18 @@
+<div class="group-menu">
+  <span class="group-title">Makanan Berat</span>
+  <div *ngFor="let menu of menuGroup(1)">
+    <app-menu-card [menu]="menu"></app-menu-card>
+  </div>
+</div>
+<div class="group-menu">
+  <span class="group-title">Topping</span>
+  <div *ngFor="let menu of menuGroup(2)">
+    <app-menu-card [menu]="menu"></app-menu-card>
+  </div>
+</div>
+<div class="group-menu">
+  <span class="group-title">Others</span>
+  <div *ngFor="let menu of menuGroup(3)">
+    <app-menu-card [menu]="menu"></app-menu-card>
+  </div>
+</div>

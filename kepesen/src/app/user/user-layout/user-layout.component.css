@@ -1,0 +1,29 @@
+.head {
+    height: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.container-user {
+    max-width: 500px;
+}
+
+.title {
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-family: fantasy;
+}
+
+.spacer-top {
+    height: 50px;
+}
+
+.main {
+    min-height: 100vh;
+    padding: 0;
+    position: relative;
+}
+
+.spacer-bottom {
+    height: 50px;
+}

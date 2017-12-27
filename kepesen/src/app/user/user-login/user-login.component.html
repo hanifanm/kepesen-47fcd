@@ -1,0 +1,15 @@
+<div class="login-container">
+  <div class="input-area">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" [(ngModel)]="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" [(ngModel)]="password">
+    </div>
+    <button type="button" class="btn btn-success btn-lg btn-block"
+      (click)="onClickLogin()"
+      >Login</button>
+  </div>
+</div>

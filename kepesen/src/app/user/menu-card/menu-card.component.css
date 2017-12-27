@@ -1,0 +1,37 @@
+.menu-card {
+    border-bottom: 0.5px solid gray;
+    padding: 5px;
+    height: 101px;
+    position: relative;
+}
+
+.menu-card:hover {
+    background-color: rgba(0,0,0,0.1)
+}
+
+.menu-image {
+    width: 98px;
+    height: 98px;
+    position: absolute;
+    top: 1px;
+    left: 0;
+}
+
+.menu-desc {
+    position: absolute;
+    top: 20px;
+    left: 120px;
+    font-size: 15px;
+}
+
+.menu-price {
+    position: absolute;
+    bottom: 20px;
+    left: 120px;
+}
+
+.order-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}

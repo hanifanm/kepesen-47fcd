@@ -1,0 +1,25 @@
+.navbar {
+    box-shadow: 0 0px 10px rgba(0,0,0,0.5);
+}
+
+.container-user {
+    max-width: 500px;
+}
+
+.navbar-nav {
+    margin: 0 auto;
+    display: table;
+    table-layout: auto;
+    float: none;
+    width: 100%;
+}
+
+.navbar-nav>li {
+    display: table-cell;
+    float: none;
+    text-align: center;
+    vertical-align: middle;
+    height: 50px;
+    cursor: pointer;
+    font-weight: bold;
+}

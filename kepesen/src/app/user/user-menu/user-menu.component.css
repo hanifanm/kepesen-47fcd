@@ -1,0 +1,14 @@
+.group-title {
+    padding: 10px 0 5px 15px;
+    border-bottom: 2px solid gray;
+    display: block;
+    font-weight: bold;
+    color: rgba(0,0,0,0.7);
+    font-size: 20px;
+}
+
+.group-menu {
+    margin: 10px 0;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+}
