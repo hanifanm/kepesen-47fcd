@@ -9,14 +9,11 @@ import { MenuModel } from '../../model/menu.service';
 export class MenuCardComponent implements OnInit {
 
   @Input() menu : MenuModel;
+  @Input() onOrder : any;
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  order(menu : MenuModel){
-    alert(JSON.stringify(menu))
   }
 
 }

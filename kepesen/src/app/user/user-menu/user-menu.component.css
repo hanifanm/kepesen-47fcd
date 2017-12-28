@@ -1,6 +1,6 @@
 .group-title {
-    padding: 10px 0 5px 15px;
-    border-bottom: 2px solid gray;
+    padding: 10px 0 5px 10px;
+    border-bottom: 2px solid black;
     display: block;
     font-weight: bold;
     color: rgba(0,0,0,0.7);
@@ -11,4 +11,6 @@
     margin: 10px 0;
     background-color: white;
     box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 3px;
 }

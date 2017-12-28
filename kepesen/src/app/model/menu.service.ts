@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs/Rx';
 
 export class MenuModel {
   constructor(
@@ -19,7 +17,7 @@ export class MenuModel {
 @Injectable()
 export class MenuService {
 
-  private menuUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/getmenu';
+  private menuUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api/menu';
   public collections : MenuModel[];
   public current : MenuModel;
 

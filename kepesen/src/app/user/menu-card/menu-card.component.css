@@ -10,28 +10,29 @@
 }
 
 .menu-image {
-    width: 98px;
-    height: 98px;
+    width: 80px;
+    height: 80px;
     position: absolute;
-    top: 1px;
-    left: 0;
+    top: 10px;
+    left: 10px;
+    border-radius: 3px;
 }
 
 .menu-desc {
     position: absolute;
-    top: 20px;
-    left: 120px;
+    top: 15px;
+    left: 100px;
     font-size: 15px;
 }
 
 .menu-price {
     position: absolute;
-    bottom: 20px;
-    left: 120px;
+    bottom: 15px;
+    left: 100px;
 }
 
 .order-button {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 10px;
 }

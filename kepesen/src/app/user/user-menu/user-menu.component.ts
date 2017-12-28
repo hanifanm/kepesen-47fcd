@@ -22,4 +22,8 @@ export class UserMenuComponent implements OnInit {
     })
   }
 
+  onOrder(menu : MenuModel) {
+    alert(JSON.stringify(menu));
+  }
+
 }

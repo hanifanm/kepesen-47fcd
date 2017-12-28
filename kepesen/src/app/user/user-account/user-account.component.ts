@@ -17,4 +17,11 @@ export class UserAccountComponent implements OnInit {
     this.loginService.logout();
   }
 
+  userDetail(){
+    if(this.loginService.user!==null){
+      return JSON.stringify(this.loginService.user);
+    }
+    return JSON.stringify({});
+  }
+
 }
