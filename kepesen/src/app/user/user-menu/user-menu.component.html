@@ -1,18 +1,23 @@
 <div class="group-menu">
   <span class="group-title">Makanan Berat</span>
-  <div *ngFor="let menu of menuGroup(1)">
-    <app-menu-card [menu]="menu" [onOrder]="onOrder"></app-menu-card>
+  <div *ngFor="let menu of getMenu(1)">
+    <app-menu-card [menu]="menu" (click)="onOrder(menu)"></app-menu-card>
   </div>
 </div>
 <div class="group-menu">
   <span class="group-title">Topping</span>
-  <div *ngFor="let menu of menuGroup(2)">
-    <app-menu-card [menu]="menu" [onOrder]="onOrder"></app-menu-card>
+  <div *ngFor="let menu of getMenu(2)">
+    <app-menu-card [menu]="menu" (click)="onOrder(menu)"></app-menu-card>
   </div>
 </div>
 <div class="group-menu">
   <span class="group-title">Lain-lain</span>
-  <div *ngFor="let menu of menuGroup(3)">
-    <app-menu-card [menu]="menu" [onOrder]="onOrder"></app-menu-card>
+  <div *ngFor="let menu of getMenu(3)">
+    <app-menu-card [menu]="menu" (click)="onOrder(menu)"></app-menu-card>
   </div>
 </div>
+<app-user-plate *ngIf="isPlateShown"
+  [onPlateOrder]="onPlateOrder"
+  [onPlateCancel]="onPlateCancel"
+  [(currentPlate)]="currentPlate">
+</app-user-plate>

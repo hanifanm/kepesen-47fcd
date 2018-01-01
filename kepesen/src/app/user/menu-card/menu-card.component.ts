@@ -9,7 +9,6 @@ import { MenuModel } from '../../model/menu.service';
 export class MenuCardComponent implements OnInit {
 
   @Input() menu : MenuModel;
-  @Input() onOrder : any;
 
   constructor() { }
 

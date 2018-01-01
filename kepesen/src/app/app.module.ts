@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { routes } from './app.routes';
 
+import { OrderService } from './model/order.service';
 import { MenuService } from './model/menu.service';
 import { LoginService } from './service/login.service';
 
@@ -19,6 +20,7 @@ import { MenuCardComponent } from './user/menu-card/menu-card.component';
 import { UserAccountComponent } from './user/user-account/user-account.component';
 import { UserHistoryComponent } from './user/user-history/user-history.component';
 import { UserOrderComponent } from './user/user-order/user-order.component';
+import { UserPlateComponent } from './user/user-plate/user-plate.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { UserOrderComponent } from './user/user-order/user-order.component';
     MenuCardComponent,
     UserAccountComponent,
     UserHistoryComponent,
-    UserOrderComponent
+    UserOrderComponent,
+    UserPlateComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { UserOrderComponent } from './user/user-order/user-order.component';
   ],
   providers: [
     MenuService,
+    OrderService,
     LoginService
   ],
   bootstrap: [AppComponent]

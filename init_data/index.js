@@ -21,17 +21,17 @@ var root = firebase.database().ref();
 //     console.log(JSON.stringify(x));
 // });
 
-// root.child('menu').set(null);
-// for(var i=0; i<init_menu.length; i++){
-//     root.child('menu').push(init_menu[i]);
-// }
-
-root.child('user').set(null);
-for(var i=0; i<init_user.length; i++){
-    root.child('user').child(init_user[i].username).set({
-        password : init_user[i].password,
-        role : init_user[i].role,
-        active : init_user[i].active,
-        name : init_user[i].name,
-    })
+root.child('menu').set(null);
+for(var i=0; i<init_menu.length; i++){
+    root.child('menu').push(init_menu[i]);
 }
+
+// root.child('user').set(null);
+// for(var i=0; i<init_user.length; i++){
+//     root.child('user').child(init_user[i].username).set({
+//         password : init_user[i].password,
+//         role : init_user[i].role,
+//         active : init_user[i].active,
+//         name : init_user[i].name,
+//     })
+// }

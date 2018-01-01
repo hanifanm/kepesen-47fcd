@@ -37,4 +37,17 @@ export class MenuService {
     })
   }
 
+  getMenu(group : number) : MenuModel[] {
+    return this.collections.filter((m : MenuModel) => {
+      return m.group === group;
+    })
+  }
+
+  getOne(id : string) : MenuModel {
+    for(let i=0; i<this.collections.length; i++){
+      if(id===this.collections[i].id) return this.collections[i];
+    }
+    return null;
+  }
+
 }

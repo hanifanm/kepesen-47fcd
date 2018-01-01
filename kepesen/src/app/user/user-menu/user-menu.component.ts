@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
+import { OrderService, OrderModel, OrderStatus } from '../../model/order.service';
+import { LoginService } from '../../service/login.service';
+import { PlateModel } from '../../model/plate.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -8,7 +12,17 @@ import { MenuService, MenuModel } from '../../model/menu.service';
 })
 export class UserMenuComponent implements OnInit {
 
-  constructor(private menuService : MenuService) { }
+  private isPlateShown : boolean = false;
+  public currentPlate : PlateModel;
+
+  constructor(
+    private menuService : MenuService,
+    private orderService : OrderService,
+    private loginService : LoginService,
+    private router : Router
+  ) {
+    this.isPlateShown = false;
+  }
 
   ngOnInit() {
     if(this.menuService.collections.length===0){
@@ -16,14 +30,31 @@ export class UserMenuComponent implements OnInit {
     }
   }
 
-  menuGroup(group) : MenuModel[] {
-    return this.menuService.collections.filter((m : MenuModel) => {
-      return m.group === group;
-    })
+  getMenu(group : number) : MenuModel[] {
+    return this.menuService.getMenu(group);
   }
 
-  onOrder(menu : MenuModel) {
-    alert(JSON.stringify(menu));
+  onOrder = (menu : MenuModel) => {
+    if(this.loginService.isLogin){
+      this.currentPlate = new PlateModel();
+      this.currentPlate.menuId = menu.id;
+      this.menuService.current = menu;
+      this.isPlateShown = true;
+    } else {
+      this.router.navigateByUrl('user/login');
+    }
+  }
+
+  onPlateOrder = (plate : PlateModel) => {
+    if(this.orderService.newOrder === null){
+      this.orderService.newOrder = new OrderModel();
+    }
+    this.orderService.newOrder.list.push(plate);
+    this.router.navigateByUrl('user/order');
+  }
+
+  onPlateCancel = () => {
+    this.isPlateShown = false;
   }
 
 }
