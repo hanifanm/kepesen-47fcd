@@ -5,7 +5,12 @@ var init_menu = [{
 	"name": "Ayam Geprek",
 	"price": 10000,
 	"price2": 10000,
-	"sambals": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"]
+	"sambal": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 1,
@@ -13,7 +18,12 @@ var init_menu = [{
 	"name": "Ayam Goreng Tulang Lunak",
 	"price": 10000,
 	"price2": 10000,
-	"sambals": ["Sambal Tomat", "Sambal Penyet", "Sambal Goang"]
+	"sambal": ["Sambal Tomat", "Sambal Penyet", "Sambal Goang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 1,
@@ -21,7 +31,12 @@ var init_menu = [{
 	"name": "Lele Terbang",
 	"price": 10000,
 	"price2": 10000,
-	"sambals": ["Sambal Tomat", "Sambal Penyet", "Sambal Goang"]
+	"sambal": ["Sambal Tomat", "Sambal Penyet", "Sambal Goang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 1,
@@ -29,7 +44,12 @@ var init_menu = [{
 	"name": "Ayam Madu Tulang Lunak",
 	"price": 10000,
 	"price2": 10000,
-	"sambals": ["Sambal Tomat", "Sambal Penyet", "Sambal Goang"]
+	"sambal": ["Sambal Tomat", "Sambal Penyet", "Sambal Goang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -37,7 +57,12 @@ var init_menu = [{
 	"name": "Martabak Tahu",
 	"price": 5000,
 	"price2": 5000,
-	"sambals": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"]
+	"sambal": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -45,7 +70,12 @@ var init_menu = [{
 	"name": "Nasi",
 	"price": 4000,
 	"price2": 3000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -53,7 +83,12 @@ var init_menu = [{
 	"name": "Mendoan Geprek",
 	"price": 5000,
 	"price2": 5000,
-	"sambals": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"]
+	"sambal": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -61,7 +96,12 @@ var init_menu = [{
 	"name": "Tahu Geprek",
 	"price": 3000,
 	"price2": 3000,
-	"sambals": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"]
+	"sambal": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -69,7 +109,12 @@ var init_menu = [{
 	"name": "Telor Dadar",
 	"price": 3000,
 	"price2": 3000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -77,7 +122,12 @@ var init_menu = [{
 	"name": "Tahu Krispi",
 	"price": 2000,
 	"price2": 2000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -85,7 +135,12 @@ var init_menu = [{
 	"name": "Tahu",
 	"price": 1000,
 	"price2": 1000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -93,7 +148,12 @@ var init_menu = [{
 	"name": "Tempe",
 	"price": 1000,
 	"price2": 1000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -101,7 +161,12 @@ var init_menu = [{
 	"name": "Ekstra Sambal",
 	"price": 2000,
 	"price2": 2000,
-	"sambals": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"]
+	"sambal": ["Sambal Kemangi", "Sambal Terasi", "Sambal Bawang", "Sambal Kacang"],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -109,7 +174,12 @@ var init_menu = [{
 	"name": "Ati Ampela",
 	"price": 3000,
 	"price2": 3000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 2,
@@ -117,7 +187,12 @@ var init_menu = [{
 	"name": "Usus",
 	"price": 2000,
 	"price2": 2000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }, {
 	"active": true,
 	"group": 3,
@@ -125,5 +200,10 @@ var init_menu = [{
 	"name": "Air Mineral 600ml",
 	"price": 3000,
 	"price2": 3000,
-	"sambals": []
+	"sambal": [],
+	"ready" : true,
+	"createdAt" : 1514901182902,
+	"createdBy" : "keadmin",
+	"updatedAt" : 1514901182902,
+	"updatedBy" : "keadmin"
 }]

@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 var UserSchema = mongoose.Schema({
     id: { type: String },
+    role: { type: Number, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     active: { type: Boolean, required: true },
@@ -17,7 +19,6 @@ var MenuSchema = mongoose.Schema({
     group: { type: Number, required: true },
     name: { type: String, required: true },
     sambal: { type: [String] },
-    toppingId: { type: [String] },
     price: { type: Number, required: true },
     price2: { type: Number, required: true },
     active: { type: Boolean, required: true },
@@ -52,14 +53,22 @@ var OrderSchema = mongoose.Schema({
     createdBy: { type: String, required: true },
     updatedAt: { type: Number, required: true },
     updatedBy: { type: String, required: true },
+    driverId_createdAt : { type: String, required: true },
+    createdBy_createdAt : { type: String, required: true }
+})
+
+var SimpleSchema = mongoose.Schema({
+    username: { type: String, required: true }
 })
 
 var User = mongoose.model('User', UserSchema);
 var Order = mongoose.model('Order', OrderSchema);
 var Menu = mongoose.model('Menu', MenuSchema);
+var Simple = mongoose.model('Simple', SimpleSchema);
 
 module.exports = {
     User: User,
     Order: Order,
-    Menu: Menu
+    Menu: Menu,
+    Simple: Simple
 }

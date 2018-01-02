@@ -11,27 +11,20 @@ firebase.initializeApp(config);
 
 var root = firebase.database().ref();
 
-// root.child('menu').on('value', snap => {
-//     console.log(snap.val());
-//     let x = [];
-//     let k = Object.keys(snap.val());
-//     for(let i=0; i<k.length; i++){
-//         x.push(snap.val()[k[i]]);
-//     }
-//     console.log(JSON.stringify(x));
-// });
-
-root.child('menu').set(null);
-for(var i=0; i<init_menu.length; i++){
-    root.child('menu').push(init_menu[i]);
-}
+// root.child('menu').set(null);
+// for(var i=0; i<init_menu.length; i++){
+//     root.child('menu').push(init_menu[i]);
+// }
 
 // root.child('user').set(null);
 // for(var i=0; i<init_user.length; i++){
-//     root.child('user').child(init_user[i].username).set({
-//         password : init_user[i].password,
-//         role : init_user[i].role,
-//         active : init_user[i].active,
-//         name : init_user[i].name,
-//     })
+//     root.child('user').push(init_user[i]);
 // }
+
+root.child('menu').orderByChild('name').equalTo('Ati Ampela')
+    .once('value').then(snap => {
+        // snap.forEach(function(element) {
+        //     console.log(element.val());
+        // });
+        console.log(snap.val());
+})
