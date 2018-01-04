@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PlateModel } from './plate.service';
+import { LoginService } from '../service/login.service';
 
 export const OrderStatus = {
     create : 0,
@@ -14,53 +15,72 @@ export const OrderStatus = {
     receive : 8
 }
 
+interface Location {
+  lat : number,
+  lng : number
+}
+
 export class OrderModel {
-    public id : string;
-    public costumer_id : string;
-    public status : number;
-    public list : Array<PlateModel>;
-    public rec_address : string;
-    public rec_name : string;
-    public rec_phone : string
-    public rec_location : {
-        lat : number,
-        lng : number
-    }
-    constructor(){
-        this.id = '';
-        this.costumer_id = '';
-        this.status = OrderStatus.create,
-        this.list = [],
-        this.rec_address = '';
-        this.rec_location = { lat : 0, lng : 0},
-        this.rec_name = '',
-        this.rec_phone = '';
-    }
+    public id : string = '';
+    public status : number = 0;
+    public list : Array<PlateModel> = [];
+    public price : number = 0;
+    public recName : string = '';
+    public recAddress : string = '';
+    public recPhone : string = '';
+    public recLocation : Location = { lat : 0, lng : 0 }
+    public driverId : string = '';
+    public createdAt : number = 0
+    public createdBy : string = '';
+    public updatedAt : number = 0;
+    public updatedBy : string = '';
+    constructor(){ }
 }
 
 @Injectable()
 export class OrderService {
 
-  private menuUrl = '';
+  private orderUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api/order';
   public collections : OrderModel[];
   public current : OrderModel;
   public newOrder : OrderModel;
 
-  constructor (private http: HttpClient) {
+  constructor (
+    private http: HttpClient,
+    private loginService : LoginService
+  ) {
     this.collections = [];
     this.current = null;
     this.newOrder = null;
   }
 
   fetchData = () => {
+    this.collections = [];
+    let headers = new HttpHeaders({
+      'x-access-token' : this.loginService.token
+    });
+    // headers.append('x-access-token', this.loginService.token);
+    this.http.get(this.orderUrl, {
+      headers : headers
+    })
+    .subscribe((response : any) => {
+      response.data.forEach(o => {
+        this.collections.push(o);
+      });
+    })
   }
 
-  getMenu(group : number) : OrderModel[] {
-    return null;
-  }
-
-  getOne(id : string) : OrderModel {
-    return null;
+  post = async (body) => {
+    let headers = new HttpHeaders({
+      'x-access-token' : this.loginService.token
+    });
+    this.http.post(
+      this.orderUrl, body,{
+        headers : headers
+      }
+    ).subscribe(response => {
+      console.log(response);
+    })
   }
 
 }

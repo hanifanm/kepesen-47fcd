@@ -4,13 +4,18 @@ import { HttpClient } from '@angular/common/http';
 export class MenuModel {
   constructor(
     public id : string,
+    public group : number,
     public name : string,
+    public sambal : [string],
     public price : number,
     public price2 : number,
     public active : boolean,
+    public ready : boolean,
     public image : string,
-    public sambals : [string],
-    public group : number,
+    public createdAt : number,
+    public createdBy : string,
+    public updatedAt : number,
+    public updatedBy : string
   ){}
 }
 
@@ -27,13 +32,10 @@ export class MenuService {
 
   fetchData = () => {
     this.collections = [];
-    this.http.get(this.menuUrl).subscribe( data => {
-      let id = Object.keys(data);
-      for(let i=0; i< id.length; i++){
-        let menu = data[id[i]];
-        menu.id = id[i];
-        this.collections.push(menu);
-      }
+    this.http.get(this.menuUrl).subscribe((response : any) => {
+      response.data.forEach(m => {
+        this.collections.push(m);
+      });
     })
   }
 

@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const model = require('./model');
+const moment = require('moment');
 
 const firebase = admin.initializeApp(functions.config().firebase);
 const api = express.Router();
@@ -87,9 +88,7 @@ api.post('/authenticate', function(req, res){
                     var token = jwt.sign({
                         username : username,
                         role : user.val().role
-                    }, secret, {
-                        expiresIn : 1440
-                    })
+                    }, secret, {})
 
                     var res_key = ['active', 'name', 'role'];
                     var result = {
@@ -132,6 +131,12 @@ api.use(function(req, res, next){
 /**
  * PRIVATE API
  */
+
+const asyncMiddleware = fn =>
+  (req, res, next) => {
+    Promise.resolve(fn(req, res, next))
+      .catch(next);
+  };
 
 //ORDER
 api.get('/order', function(req, res){
@@ -188,23 +193,81 @@ api.get('/order', function(req, res){
     }
 })
 
-api.post('/order', function(req, res){
+var countPrice = function(list, menus){
+    var totalPrice = 0;
+    list.forEach(plate => {
+        plate.price = menus[plate.menuId].price;
+        plate.toppingId.forEach(tid => {
+            plate.price += menus[tid].price2;
+        })
+        totalPrice += plate.price;
+    })
+    return totalPrice;
+}
+
+api.post('/order', asyncMiddleware(function(req, res, next){
     new model.Order(req.body).validate(function(err){
         if(err === null || err === undefined){
-            // res.json(req.body);
-            firebase.database().ref('order').push(req.body)
-            .then(function(){
-                var response = new Response(true, 200, 'Success inserting data into database', null, null);
-                res.status(200).json(response.getResponse());
-            }).catch(function(err){
-                var response = new Response(false, 400, null, 'Failed to insert data into database.', err)
-                res.status(400).json(response.getResponse());
-            });
+
+            firebase.database().ref('menu').once('value').then(menus => {
+                req.body.createdAt = moment(new Date()).valueOf();
+                req.body.updatedAt = req.body.createdAt;
+                req.body.createdBy_createdAt = req.body.createdBy + '_' + req.body.createdAt;
+                req.body.price = countPrice(req.body.list, menus.val());
+
+                firebase.database().ref('order').push(req.body)
+                .then(function(){
+                    var response = new Response(true, 200, 'Success inserting data into database', null, null);
+                    res.status(200).json(response.getResponse());
+                }).catch(function(err){
+                    var response = new Response(false, 400, null, 'Failed to insert data into database.', err)
+                    res.status(400).json(response.getResponse());
+                });
+            })
+            
         } else {
             var response = new Response(false, 400, null, 'Request body doesnt match.', err)
             res.status(400).json(response.getResponse());
         }
     })
+}))
+
+api.put('/order', asyncMiddleware(function(req, res){
+    if (!req.body.id || req.body.id==='' 
+    || !req.body.updatedBy || req.body.updatedBy===''
+    || !req.body.status || req.body.status==='') {
+        var response = new Response(false, 400, null, 'Request body doesnt match.', err)
+        res.status(400).json(response.getResponse());
+    } else {
+
+        firebase.database().ref('order/'+req.body.id).once('value').then(order => {
+            
+            if(order.val()===null){
+                var response = new Response(false, 400, null, 'Data with this id doesnt exist.', err)
+                res.status(400).json(response.getResponse());
+            }
+
+            firebase.database().ref('order/'+req.body.id).update({
+                updatedAt : moment(new Date()).valueOf(),
+                updatedBy : req.body.updatedBy,
+                status : req.body.status,
+                driverId : req.body.driverId? req.body.driverId : '',
+                driverId_createdAt : req.body.driverId? req.body.driverId + '_' + order.val().createdAt : ''
+            })
+            .then(function(){
+                var response = new Response(true, 200, 'Success updating data.', null, null);
+                res.status(200).json(response.getResponse());
+            }).catch(function(err){
+                var response = new Response(false, 400, null, 'Failed to update data.', err)
+                res.status(400).json(response.getResponse());
+            });
+        })
+    }
+}))
+
+api.use(function(err, req, res, next) {
+    var response = new Response(false, 500, null, 'An error occured.', err)
+    res.status(500).json(response.getResponse());
 })
 
 module.exports = api;

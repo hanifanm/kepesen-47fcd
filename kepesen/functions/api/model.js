@@ -23,6 +23,7 @@ var MenuSchema = mongoose.Schema({
     price2: { type: Number, required: true },
     active: { type: Boolean, required: true },
     ready: { type: Boolean, required: true },
+    image: { type: String, required: true },
     createdAt: { type: Number, required: true },
     createdBy: { type: String, required: true },
     updatedAt: { type: Number, required: true },
@@ -34,13 +35,13 @@ var OrderSchema = mongoose.Schema({
     status: { type: Number, required: true },
     list: [{
         menuId: { type: String, required: true },
-        sambal: { type: String, required: true },
+        sambal: { type: String },
         chili: { type: Number, required: true },
-        toppingId: { type: [Number] },
-        price: { type: Number, required: true },
+        toppingId: { type: [String] },
+        price: { type: Number },
         quantity: { type: Number, required: true },
     }],
-    price: { type: Number, required: true },
+    price: { type: Number },
     recName: { type: String, required: true },
     recAddress: { type: String, required: true },
     recPhone: { type: String, required: true },
@@ -49,26 +50,20 @@ var OrderSchema = mongoose.Schema({
         lng: { type: Number, required: true },
     },
     driverId: { type: String },
-    createdAt: { type: Number, required: true },
+    createdAt: { type: Number },
     createdBy: { type: String, required: true },
-    updatedAt: { type: Number, required: true },
+    updatedAt: { type: Number },
     updatedBy: { type: String, required: true },
-    driverId_createdAt : { type: String, required: true },
-    createdBy_createdAt : { type: String, required: true }
-})
-
-var SimpleSchema = mongoose.Schema({
-    username: { type: String, required: true }
+    driverId_createdAt : { type: String },
+    createdBy_createdAt : { type: String }
 })
 
 var User = mongoose.model('User', UserSchema);
 var Order = mongoose.model('Order', OrderSchema);
 var Menu = mongoose.model('Menu', MenuSchema);
-var Simple = mongoose.model('Simple', SimpleSchema);
 
 module.exports = {
     User: User,
     Order: Order,
-    Menu: Menu,
-    Simple: Simple
+    Menu: Menu
 }

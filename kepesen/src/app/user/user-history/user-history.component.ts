@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from '../../model/order.service';
 
 @Component({
   selector: 'app-user-history',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserHistoryComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private orderService : OrderService
+  ) {
+    orderService.fetchData();
+  }
 
   ngOnInit() {
+  }
+
+  getOrder(order){
+    return JSON.stringify(order);
   }
 
 }

@@ -22,6 +22,7 @@ export class UserMenuComponent implements OnInit {
     private router : Router
   ) {
     this.isPlateShown = false;
+    console.log(new PlateModel());
   }
 
   ngOnInit() {
@@ -49,6 +50,7 @@ export class UserMenuComponent implements OnInit {
     if(this.orderService.newOrder === null){
       this.orderService.newOrder = new OrderModel();
     }
+    console.log(plate);
     this.orderService.newOrder.list.push(plate);
     this.router.navigateByUrl('user/order');
   }

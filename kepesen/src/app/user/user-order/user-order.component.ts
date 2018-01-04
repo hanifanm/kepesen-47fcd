@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService, MenuModel } from '../../model/menu.service';
 import { OrderService, OrderModel, OrderStatus } from '../../model/order.service';
 import { PlateModel } from '../../model/plate.service';
+import { LoginService } from '../../service/login.service';
+
 @Component({
   selector: 'app-user-order',
   templateUrl: './user-order.component.html',
@@ -9,21 +11,30 @@ import { PlateModel } from '../../model/plate.service';
 })
 export class UserOrderComponent implements OnInit {
 
-  private newOrder : OrderModel = new OrderModel();
+  private newOrder : OrderModel;
   private currentPlate : PlateModel;
   private currentPlateIndex : number;
 
   constructor(
     private orderService : OrderService,
     private menuService : MenuService,
+    private loginService : LoginService
   ) {
-    if(this.orderService.newOrder !== null){
+    if (this.orderService.newOrder !== null){
       this.newOrder = orderService.newOrder;
+    } else {
+      this.newOrder = new OrderModel();
     }
     this.currentPlate = null;
   }
 
   ngOnInit() {
+    this.initNewOrder();
+  }
+
+  initNewOrder(){
+    this.newOrder.createdBy = this.loginService.user.username;
+    this.newOrder.updatedBy = this.loginService.user.username;
   }
 
   getMenuDetail(id : string) : MenuModel {
@@ -40,13 +51,13 @@ export class UserOrderComponent implements OnInit {
 
   onSendOrder(){
     let error = '';
-    if(this.newOrder.rec_phone === ''){
+    if(this.newOrder.recPhone === ''){
       error = 'Nomor Telepon Penerima wajib diisi.'
     }
-    if(this.newOrder.rec_address === ''){
+    if(this.newOrder.recAddress === ''){
       error = 'Lokasi Pengiriman wajib diisi.'
     }
-    if(this.newOrder.rec_name === ''){
+    if(this.newOrder.recName === ''){
       error = 'Nama Penerima wajib diisi.'
     }
     if(this.newOrder.list.length === 0){
@@ -56,7 +67,7 @@ export class UserOrderComponent implements OnInit {
       alert(error);
       return;
     }
-    alert(JSON.stringify(this.newOrder));
+    this.orderService.post(this.newOrder);
   }
 
   onEditPlate(plate : PlateModel){

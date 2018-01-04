@@ -6,7 +6,7 @@
     <div class="form-group" *ngIf="isAskSambal">
       <label>Select Sambal :</label>
       <select class="form-control" [(ngModel)]="currentPlate.sambal">
-        <option *ngFor="let s of currentMenu.sambals"
+        <option *ngFor="let s of currentMenu.sambal"
           [value]="s">
           {{s}}
         </option>

@@ -1,4 +1,4 @@
-<div class='plate-card' *ngFor='let p of newOrder.list'
+<div class='order-card' *ngFor='let p of newOrder.list'
   (click)="onEditPlate(p)">
   <strong>Menu : </strong>{{getMenuDetail(p.menuId).name}}<br/>
   <strong>Sambal : </strong>{{p.sambal}}<br/>
@@ -10,22 +10,22 @@
   <br/>
   <strong>Harga : </strong>{{p.price}}<br/>
 </div>
-<div class="plate-card">
+<div class="order-card">
   <div class="form-group">
     <label>Total Harga:</label>
     <span class="pull-right h4">Rp. {{getTotalPrice() | number}}</span>
   </div>
   <div class="form-group">
     <label>Nama Penerima:</label>
-    <input type="text" class="form-control" [(ngModel)]="newOrder.rec_name">
+    <input type="text" class="form-control" [(ngModel)]="newOrder.recName">
   </div>
   <div class="form-group">
     <label>Lokasi Pengiriman:</label>
-    <input type="text" class="form-control" [(ngModel)]="newOrder.rec_address">
+    <input type="text" class="form-control" [(ngModel)]="newOrder.recAddress">
   </div>
   <div class="form-group">
     <label>Nomor Telepon Penerima:</label>
-    <input type="text" class="form-control" [(ngModel)]="newOrder.rec_phone">
+    <input type="text" class="form-control" [(ngModel)]="newOrder.recPhone">
   </div>
   <button type="button" class="btn btn-success btn-lg btn-block"
       (click)="onSendOrder()">PESAN</button>

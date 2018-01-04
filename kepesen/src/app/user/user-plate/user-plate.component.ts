@@ -26,7 +26,7 @@ export class UserPlateComponent implements OnInit {
   ngOnInit() {
     this.currentMenu = this.menuService.getOne(this.currentPlate.menuId);
     this.toppingList = this.menuService.getMenu(2);
-    if(this.currentMenu.sambals && this.currentMenu.sambals.length>0)
+    if(this.currentMenu.sambal && this.currentMenu.sambal.length>0)
       this.isAskSambal = true;
     if(this.currentMenu.group===1) this.isAskTopping = true;
   }
