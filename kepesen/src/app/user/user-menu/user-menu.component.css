@@ -14,3 +14,42 @@
     padding: 10px;
     border-radius: 3px;
 }
+
+.menu-card {
+    border-bottom: 0.5px solid gray;
+    padding: 5px;
+    height: 101px;
+    position: relative;
+}
+
+.menu-card:hover {
+    background-color: rgba(0,0,0,0.1)
+}
+
+.menu-image {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 3px;
+}
+
+.menu-desc {
+    position: absolute;
+    top: 15px;
+    left: 100px;
+    font-size: 15px;
+}
+
+.menu-price {
+    position: absolute;
+    bottom: 15px;
+    left: 100px;
+}
+
+.order-button {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+}

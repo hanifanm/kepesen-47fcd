@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { PlateModel } from './plate.service';
-import { LoginService } from '../service/login.service';
 
 export const OrderStatus = {
-    create : 0,
-    order : 1,
-    process : 2,
-    deliver : 3,
-    time_out : 4,
-    cancel : 5,
-    reject : 6,
-    user_not_exist : 7,
-    receive : 8
+    create : 1,
+    order : 2,
+    process : 3,
+    assigned : 4,
+    delivered : 5,
+    cancel : 6,
+    reject : 7,
+    user_not_exist : 8,
+    receive : 9
 }
 
 interface Location {
@@ -29,7 +28,6 @@ export class OrderModel {
     public recAddress : string = '';
     public recPhone : string = '';
     public recLocation : Location = { lat : 0, lng : 0 }
-    public driverId : string = '';
     public createdAt : number = 0
     public createdBy : string = '';
     public updatedAt : number = 0;
@@ -40,45 +38,37 @@ export class OrderModel {
 @Injectable()
 export class OrderService {
 
-  private orderUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api/order';
+  private orderUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api/costumerorder';
   public collections : OrderModel[];
   public current : OrderModel;
   public newOrder : OrderModel;
+  public isLoading : boolean;
 
   constructor (
     private http: HttpClient,
-    private loginService : LoginService
   ) {
     this.collections = [];
     this.current = null;
     this.newOrder = null;
+    this.isLoading = false;
   }
 
-  fetchData = () => {
+  fetchData = (userId : string) => {
     this.collections = [];
-    let headers = new HttpHeaders({
-      'x-access-token' : this.loginService.token
-    });
-    // headers.append('x-access-token', this.loginService.token);
-    this.http.get(this.orderUrl, {
-      headers : headers
-    })
+    let params = new HttpParams();
+    this.isLoading = true;
+    this.http.get(this.orderUrl + '?userId=' + userId)
     .subscribe((response : any) => {
-      response.data.forEach(o => {
-        this.collections.push(o);
+      response.data.forEach(order => {
+        this.collections.push(order);
       });
+      this.isLoading = false;
     })
   }
 
   post = async (body) => {
-    let headers = new HttpHeaders({
-      'x-access-token' : this.loginService.token
-    });
-    this.http.post(
-      this.orderUrl, body,{
-        headers : headers
-      }
-    ).subscribe(response => {
+    this.http.post(this.orderUrl, body)
+    .subscribe(response => {
       console.log(response);
     })
   }

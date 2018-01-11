@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../service/login.service';
-
 @Component({
   selector: 'app-user-account',
   templateUrl: './user-account.component.html',
@@ -8,19 +6,15 @@ import { LoginService } from '../../service/login.service';
 })
 export class UserAccountComponent implements OnInit {
 
-  constructor(private loginService : LoginService) {}
+  constructor() {}
 
   ngOnInit() {
   }
 
   onClickLogout(){
-    this.loginService.logout();
   }
 
   userDetail(){
-    if(this.loginService.user!==null){
-      return JSON.stringify(this.loginService.user);
-    }
     return JSON.stringify({});
   }
 

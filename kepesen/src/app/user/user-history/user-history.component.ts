@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../model/order.service';
+import { CookieService } from '../../service/cookie.service';
+import { MenuModel, MenuService } from '../../model/menu.service';
 
 @Component({
   selector: 'app-user-history',
@@ -8,10 +10,22 @@ import { OrderService } from '../../model/order.service';
 })
 export class UserHistoryComponent implements OnInit {
 
+  isLoading : boolean = false;
+
   constructor(
-    private orderService : OrderService
+    private orderService : OrderService,
+    private cookieService : CookieService,
+    private menuService : MenuService
   ) {
-    orderService.fetchData();
+    try {
+      let userId = this.cookieService.getUserId();
+      if(orderService.collections.length===0){
+        this.isLoading = true;
+        orderService.fetchData(userId)
+      }
+    } catch (err) {
+      alert(err);
+    }
   }
 
   ngOnInit() {
@@ -19,6 +33,10 @@ export class UserHistoryComponent implements OnInit {
 
   getOrder(order){
     return JSON.stringify(order);
+  }
+
+  getMenuDetail(id : string) : MenuModel {
+    return this.menuService.getOne(id);
   }
 
 }

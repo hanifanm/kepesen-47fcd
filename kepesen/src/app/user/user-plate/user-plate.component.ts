@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { trigger, state, style, animate, transition} from '@angular/animations';
+
 import { MenuService, MenuModel } from '../../model/menu.service';
 import { OrderService, OrderModel } from '../../model/order.service';
 import { PlateModel } from '../../model/plate.service';
@@ -6,7 +8,26 @@ import { PlateModel } from '../../model/plate.service';
 @Component({
   selector: 'app-user-plate',
   templateUrl: './user-plate.component.html',
-  styleUrls: ['./user-plate.component.css']
+  styleUrls: ['./user-plate.component.css'],
+  animations: [
+    trigger('plateState', [
+      state('inactive', style({
+        top: '100vh'
+      })),
+      state('active',   style({
+        top: '0'
+      })),
+      transition(':enter', [
+        style({
+          top: '100vh'
+        }),
+        animate('300ms ease-in', style({
+          top: '0'
+        }))
+      ]),
+      transition('active => inactive', animate('300ms ease-out'))
+    ])
+  ]
 })
 export class UserPlateComponent implements OnInit {
 
@@ -18,10 +39,14 @@ export class UserPlateComponent implements OnInit {
   private toppingList : MenuModel[];
   private isAskSambal : boolean = false;
   private isAskTopping : boolean = false;
+  private isError : boolean = false;
+  private errorMessage : string = '';
+  private animationState : string;
 
   constructor(
     private menuService : MenuService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.currentMenu = this.menuService.getOne(this.currentPlate.menuId);
@@ -29,6 +54,7 @@ export class UserPlateComponent implements OnInit {
     if(this.currentMenu.sambal && this.currentMenu.sambal.length>0)
       this.isAskSambal = true;
     if(this.currentMenu.group===1) this.isAskTopping = true;
+    this.animationState = 'active';
   }
 
   onChiliUp() {
@@ -63,12 +89,24 @@ export class UserPlateComponent implements OnInit {
     return price;
   }
 
-  onClickOrder(plate : PlateModel){
+  onClickOrder = async(plate : PlateModel) => {
     if(this.isAskSambal && this.currentPlate.sambal === ''){
-      alert('Pilihan sambal harus diisi.');
+      // alert('Pilihan sambal harus diisi.');
+      this.isError = true;
+      this.errorMessage = 'Pilihan sambal harus diisi.';
       return;
+    } else {
+      this.isError = false;
     }
+    this.animationState = 'inactive';
+    await new Promise(resolve => setTimeout(resolve, 400));
     this.onPlateOrder(plate);
+  }
+
+  onClickCancel = async() => {
+    this.animationState = 'inactive';
+    await new Promise(resolve => setTimeout(resolve, 400));
+    this.onPlateCancel();
   }
 
 }

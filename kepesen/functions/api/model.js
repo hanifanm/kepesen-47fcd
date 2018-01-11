@@ -49,13 +49,10 @@ var OrderSchema = mongoose.Schema({
         lat: { type: Number, required: true },
         lng: { type: Number, required: true },
     },
-    driverId: { type: String },
     createdAt: { type: Number },
     createdBy: { type: String, required: true },
     updatedAt: { type: Number },
-    updatedBy: { type: String, required: true },
-    driverId_createdAt : { type: String },
-    createdBy_createdAt : { type: String }
+    updatedBy: { type: String, required: true }
 })
 
 var User = mongoose.model('User', UserSchema);

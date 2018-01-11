@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
 import { OrderService, OrderModel, OrderStatus } from '../../model/order.service';
-import { LoginService } from '../../service/login.service';
 import { PlateModel } from '../../model/plate.service';
 
 @Component({
@@ -18,11 +17,9 @@ export class UserMenuComponent implements OnInit {
   constructor(
     private menuService : MenuService,
     private orderService : OrderService,
-    private loginService : LoginService,
     private router : Router
   ) {
     this.isPlateShown = false;
-    console.log(new PlateModel());
   }
 
   ngOnInit() {
@@ -35,22 +32,18 @@ export class UserMenuComponent implements OnInit {
     return this.menuService.getMenu(group);
   }
 
-  onOrder = (menu : MenuModel) => {
-    if(this.loginService.isLogin){
-      this.currentPlate = new PlateModel();
-      this.currentPlate.menuId = menu.id;
-      this.menuService.current = menu;
-      this.isPlateShown = true;
-    } else {
-      this.router.navigateByUrl('user/login');
-    }
+  onOrder = async(menu : MenuModel) => {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    this.currentPlate = new PlateModel();
+    this.currentPlate.menuId = menu.id;
+    this.menuService.current = menu;
+    this.isPlateShown = true;
   }
 
   onPlateOrder = (plate : PlateModel) => {
     if(this.orderService.newOrder === null){
       this.orderService.newOrder = new OrderModel();
     }
-    console.log(plate);
     this.orderService.newOrder.list.push(plate);
     this.router.navigateByUrl('user/order');
   }

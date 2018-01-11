@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
 import { OrderService, OrderModel, OrderStatus } from '../../model/order.service';
 import { PlateModel } from '../../model/plate.service';
-import { LoginService } from '../../service/login.service';
+import { CookieService } from '../../service/cookie.service';
 
 @Component({
   selector: 'app-user-order',
@@ -11,14 +12,19 @@ import { LoginService } from '../../service/login.service';
 })
 export class UserOrderComponent implements OnInit {
 
-  private newOrder : OrderModel;
-  private currentPlate : PlateModel;
-  private currentPlateIndex : number;
-
+  newOrder : OrderModel;
+  currentPlate : PlateModel;
+  currentPlateIndex : number;
+  lat: number;
+  lng: number;
+  isMapOpen : boolean = false;
+  isError : boolean = false;
+  errorMessage : string = '';
   constructor(
     private orderService : OrderService,
     private menuService : MenuService,
-    private loginService : LoginService
+    private cookieService : CookieService,
+    private router : Router
   ) {
     if (this.orderService.newOrder !== null){
       this.newOrder = orderService.newOrder;
@@ -26,6 +32,13 @@ export class UserOrderComponent implements OnInit {
       this.newOrder = new OrderModel();
     }
     this.currentPlate = null;
+    if(this.newOrder.recLocation.lat===0){
+      this.lat = -6.880123732861788;
+      this.lng = 107.61204219265983;
+    } else {
+      this.lat = this.newOrder.recLocation.lat;
+      this.lng = this.newOrder.recLocation.lng;
+    }
   }
 
   ngOnInit() {
@@ -33,8 +46,8 @@ export class UserOrderComponent implements OnInit {
   }
 
   initNewOrder(){
-    this.newOrder.createdBy = this.loginService.user.username;
-    this.newOrder.updatedBy = this.loginService.user.username;
+    this.newOrder.createdBy = this.cookieService.getUserId();
+    this.newOrder.updatedBy = this.cookieService.getUserId();
   }
 
   getMenuDetail(id : string) : MenuModel {
@@ -51,6 +64,9 @@ export class UserOrderComponent implements OnInit {
 
   onSendOrder(){
     let error = '';
+    if(this.newOrder.recLocation.lat === 0){
+      error = 'Lokasi Pengiriman harus dipilih.'
+    }
     if(this.newOrder.recPhone === ''){
       error = 'Nomor Telepon Penerima wajib diisi.'
     }
@@ -64,13 +80,25 @@ export class UserOrderComponent implements OnInit {
       error = 'Pesanan minimal adalah 1. Silakan pilih dari daftar menu.'
     }
     if(error.length > 0 ){
-      alert(error);
+      // alert(error);
+      this.isError = true;
+      this.errorMessage = error;
       return;
+    } else {
+      this.isError = false;
+      this.errorMessage = '';
     }
-    this.orderService.post(this.newOrder);
+    this.orderService.post(this.newOrder)
+    .then( (res : any) => {
+      this.router.navigateByUrl('user/history');
+    })
+    .catch((err : any) => {
+      console.log(err);
+    })
   }
 
-  onEditPlate(plate : PlateModel){
+  onEditPlate = async(plate : PlateModel) => {
+    await new Promise(resolve => setTimeout(resolve, 100));
     this.currentPlate = new PlateModel();
     this.currentPlateIndex = this.newOrder.list.indexOf(plate);
     Object.assign(this.currentPlate, plate);
@@ -88,6 +116,16 @@ export class UserOrderComponent implements OnInit {
 
   onPlateCancel = () => {
     this.currentPlate = null;
+  }
+
+  onDragEnd = ($event) => {
+    this.newOrder.recLocation.lat = $event.coords.lat;
+    this.newOrder.recLocation.lng = $event.coords.lng;
+    console.log(this.newOrder.recLocation);
+  }
+
+  onToggleMap = () => {
+    this.isMapOpen = !this.isMapOpen;
   }
 
 }

@@ -13,3 +13,7 @@
     background-color: #eee;
     display: inline-block;
 } 
+
+agm-map {
+    height: 300px;
+}

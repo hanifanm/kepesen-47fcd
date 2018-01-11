@@ -1,16 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { SplashscreenComponent } from './user/splashscreen/splashscreen.component';
 import { UserLayoutComponent } from './user/user-layout/user-layout.component';
 import { UserMenuComponent } from './user/user-menu/user-menu.component';
-import { UserLoginComponent } from './user/user-login/user-login.component';
-import { UserAccountComponent } from './user/user-account/user-account.component';
 import { UserHistoryComponent } from './user/user-history/user-history.component';
 import { UserOrderComponent } from './user/user-order/user-order.component';
 
 export const routes : Routes = [
     { 
         path: '',
-        redirectTo: 'user/menu',
+        component: SplashscreenComponent,
         pathMatch: 'full'
     },
     {
@@ -23,11 +22,6 @@ export const routes : Routes = [
                 pathMatch: 'full'
             },
             {
-                path: 'login',
-                component: UserLoginComponent,
-                pathMatch: 'full'
-            },
-            {
                 path: 'order',
                 component: UserOrderComponent,
                 pathMatch: 'full'
@@ -36,12 +30,7 @@ export const routes : Routes = [
                 path: 'history',
                 component: UserHistoryComponent,
                 pathMatch: 'full'
-            },
-            {
-                path: 'account',
-                component: UserAccountComponent,
-                pathMatch: 'full'
-            },
+            }
         ]
     }
 ];

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import HashMap from 'hashmap';
 
 export class MenuModel {
   constructor(
@@ -25,17 +26,25 @@ export class MenuService {
   private menuUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api/menu';
   public collections : MenuModel[];
   public current : MenuModel;
+  private map : any;
+  private isLoading : boolean;
 
   constructor (private http: HttpClient) {
     this.collections = [];
+    this.map = new HashMap();
+    this.isLoading = false;
   }
 
   fetchData = () => {
     this.collections = [];
+    this.map = new HashMap();
+    this.isLoading = true;
     this.http.get(this.menuUrl).subscribe((response : any) => {
       response.data.forEach(m => {
         this.collections.push(m);
+        this.map.set(m.id, m);
       });
+      this.isLoading = false;
     })
   }
 
@@ -46,10 +55,7 @@ export class MenuService {
   }
 
   getOne(id : string) : MenuModel {
-    for(let i=0; i<this.collections.length; i++){
-      if(id===this.collections[i].id) return this.collections[i];
-    }
-    return null;
+    return this.map.get(id);
   }
 
 }

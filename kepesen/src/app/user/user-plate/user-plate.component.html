@@ -1,10 +1,10 @@
-<div class="page-overlay">
+<div class="page-overlay" [@plateState]="animationState">
   <div class="plate-form">
 
     <h3>{{currentMenu.name}}</h3>
     <h4>Rp. {{getPrice() | number}}.00</h4>
     <div class="form-group" *ngIf="isAskSambal">
-      <label>Select Sambal :</label>
+      <label>Pilih Sambal :</label>
       <select class="form-control" [(ngModel)]="currentPlate.sambal">
         <option *ngFor="let s of currentMenu.sambal"
           [value]="s">
@@ -15,37 +15,39 @@
 
     <div class="form-group" *ngIf="isAskSambal">
       <label>Level :</label><br />
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary" (click)="onChiliDown()">-</button>
-        <button type="button" class="btn btn-default">
+      <div class="btn-group btn-group-justified">
+        <a class="btn btn-primary ripple" (click)="onChiliDown()">-</a>
+        <a class="btn btn-default">
           <strong>{{currentPlate.chili}}</strong>
-        </button>
-        <button type="button" class="btn btn-primary" (click)="onChiliUp()">+</button>
+        </a>
+        <a class="btn btn-primary ripple" (click)="onChiliUp()">+</a>
       </div>
     </div>
 
     <div class="form-group" *ngIf="isAskTopping">
-      <label>Add Topping :</label><br />
-      <div class="checkbox" *ngFor="let m of menuService.getMenu(2); let i=index">
-        <label [ngClass]="{'active' : this.isToppingAdded(m)}">
-          <input type="checkbox"
-            [checked]="this.isToppingAdded(m)"
-            (change)="onToggleTopping(m)">
+      <label>Tambah Topping :</label><br />
+      <ul class="list-group">
+        <li class="list-group-item ripple"
+          (click)="onToggleTopping(m)"
+          *ngFor="let m of menuService.getMenu(2); let i=index"
+          [ngClass]="{'list-group-item-success' : this.isToppingAdded(m)}">
           {{m.name}}
-        </label>
-      </div>
+        </li>
+      </ul>
     </div>
+
+    <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
 
     <div class="action-button">
       <div class="btn-group btn-group-justified">
         <div class="btn-group">
-          <button type="button" class="btn btn-danger btn-lg"
-          (click)="onPlateCancel()">
+          <button type="button" class="btn btn-danger btn-lg ripple"
+          (click)="onClickCancel()">
             KEMBALI
           </button>
         </div>
         <div class="btn-group">
-          <button type="button" class="btn btn-success  btn-lg"
+          <button type="button" class="btn btn-success btn-lg ripple"
             (click)="onClickOrder(currentPlate)">
             SIMPAN
           </button>

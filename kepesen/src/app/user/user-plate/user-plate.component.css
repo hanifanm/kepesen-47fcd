@@ -19,7 +19,7 @@
     border-top-right-radius: 3px;
     background-color : white;
     box-shadow: 2px 2px 5px black;
-    padding: 70px 20px 20px 20px;
+    padding: 50px 20px 60px 20px;
     position: relative;
 }
 
@@ -30,6 +30,6 @@
     bottom: 10px;
 }
 
-.active {
-    font-weight: bold;
+.btn-chili {
+    width: 40%
 }

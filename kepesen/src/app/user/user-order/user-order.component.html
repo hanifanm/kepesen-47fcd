@@ -1,4 +1,4 @@
-<div class='order-card' *ngFor='let p of newOrder.list'
+<div class="order-card ripple" *ngFor="let p of newOrder.list"
   (click)="onEditPlate(p)">
   <strong>Menu : </strong>{{getMenuDetail(p.menuId).name}}<br/>
   <strong>Sambal : </strong>{{p.sambal}}<br/>
@@ -20,14 +20,38 @@
     <input type="text" class="form-control" [(ngModel)]="newOrder.recName">
   </div>
   <div class="form-group">
-    <label>Lokasi Pengiriman:</label>
+    <label>Alamat Pengiriman:</label>
     <input type="text" class="form-control" [(ngModel)]="newOrder.recAddress">
   </div>
   <div class="form-group">
     <label>Nomor Telepon Penerima:</label>
     <input type="text" class="form-control" [(ngModel)]="newOrder.recPhone">
   </div>
-  <button type="button" class="btn btn-success btn-lg btn-block"
+  <div class="form-group">
+    <label>Lokasi Pengiriman:</label>
+    <input type="text" class="form-control" [disabled]="true"
+      value="{{newOrder.recLocation.lat + ', ' + newOrder.recLocation.lat}}">
+  </div>
+  <button type="button" class="btn btn-default btn-lg btn-block ripple"
+    (click)="onToggleMap()"
+    >{{isMapOpen? "CLOSE MAP" : "OPEN MAP"}}</button>
+  <br/>
+  <div class="form-group" *ngIf="isMapOpen">
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="16"
+      [fullscreenControl]="true">
+      <agm-marker
+        [latitude]="lat"
+        [longitude]="lng"
+        [markerDraggable]="true"
+        (dragEnd)="onDragEnd($event)">
+        </agm-marker>
+    </agm-map>
+  </div>
+  <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
+  <button type="button" class="btn btn-success btn-lg btn-block ripple"
       (click)="onSendOrder()">PESAN</button>
 </div>
 
@@ -36,3 +60,5 @@
   [onPlateCancel]="onPlateCancel"
   [currentPlate]="currentPlate">
 </app-user-plate>
+
+<!--<app-loading-overlay></app-loading-overlay>-->

@@ -1,0 +1,17 @@
+.login-container {
+    min-height: 100vh;
+    background-color: #C0392B;
+    padding: 30px;
+}
+
+.container-user {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 90%;
+    max-width: 400px;
+    margin: 40px auto 0 auto;
+    display: block;
+}

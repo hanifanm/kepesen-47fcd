@@ -1,3 +1,12 @@
 <div class="history-card" *ngFor="let order of orderService.collections">
-  <pre>{{getOrder(order)}}</pre>
+  <strong>ID : </strong>{{order.id}}<br/>
+  <strong>Nama Penerima : </strong>{{order.recName}}<br/>
+  <strong>Lokasi Pengiriman : </strong>{{order.recAddress}}<br/>
+  <strong>Nomor Telepon Penerima : </strong>{{order.recPhone}}<br/>
+  <strong>Total Item : </strong>{{order.list.length}}<br/>
+  <strong>Status : </strong>{{order.status}}<br/>
+  <strong>Harga : </strong>{{order.price}}<br/>
 </div>
+
+<app-loading *ngIf="orderService.isLoading"></app-loading>
+

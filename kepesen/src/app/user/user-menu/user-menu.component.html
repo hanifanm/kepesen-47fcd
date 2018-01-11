@@ -1,21 +1,51 @@
 <div class="group-menu">
   <span class="group-title">Makanan Berat</span>
+  <app-loading *ngIf="menuService.isLoading"></app-loading>
   <div *ngFor="let menu of getMenu(1)">
-    <app-menu-card [menu]="menu" (click)="onOrder(menu)"></app-menu-card>
+    <div class="menu-card ripple" (click)="onOrder(menu)">
+      <img class="menu-image" [src]="menu.image" [alt]="menu.name"/>
+      <div class="menu-desc">
+        <strong>{{menu.name}}</strong>
+      </div>
+      <div class="menu-price">
+        <strong>Rp. {{menu.price | number}}</strong>
+      </div>
+    </div>
   </div>
 </div>
+
 <div class="group-menu">
   <span class="group-title">Topping</span>
+  <app-loading *ngIf="menuService.isLoading"></app-loading>
   <div *ngFor="let menu of getMenu(2)">
-    <app-menu-card [menu]="menu" (click)="onOrder(menu)"></app-menu-card>
+    <div class="menu-card ripple" (click)="onOrder(menu)">
+      <img class="menu-image" [src]="menu.image" [alt]="menu.name"/>
+      <div class="menu-desc">
+        <strong>{{menu.name}}</strong>
+      </div>
+      <div class="menu-price">
+        <strong>Rp. {{menu.price | number}}</strong>
+      </div>
+    </div>
   </div>
 </div>
+
 <div class="group-menu">
   <span class="group-title">Lain-lain</span>
+  <app-loading *ngIf="menuService.isLoading"></app-loading>
   <div *ngFor="let menu of getMenu(3)">
-    <app-menu-card [menu]="menu" (click)="onOrder(menu)"></app-menu-card>
+    <div class="menu-card ripple" (click)="onOrder(menu)">
+      <img class="menu-image" [src]="menu.image" [alt]="menu.name"/>
+      <div class="menu-desc">
+        <strong>{{menu.name}}</strong>
+      </div>
+      <div class="menu-price">
+        <strong>Rp. {{menu.price | number}}</strong>
+      </div>
+    </div>
   </div>
 </div>
+
 <app-user-plate *ngIf="isPlateShown"
   [onPlateOrder]="onPlateOrder"
   [onPlateCancel]="onPlateCancel"
