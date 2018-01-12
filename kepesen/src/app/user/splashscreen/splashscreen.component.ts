@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from '../../service/cookie.service';
+import { IdbService } from '../../service/idb.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,20 +10,17 @@ import { Router } from '@angular/router';
 export class SplashscreenComponent implements OnInit {
 
   constructor(
-    private cookieService : CookieService,
-    private router : Router
+    private router : Router,
+    private idbService : IdbService
   ) { }
 
   ngOnInit() {
   }
 
-  onEnterApp(){
-    try {
-      this.cookieService.getUserId();
-      this.router.navigateByUrl('user/menu');
-    } catch (err) {
-      alert(err);
-    }
+  onEnterApp = async() => {
+    let userId = await this.idbService.getUserId();
+    console.log(userId);
+    this.router.navigateByUrl('user/menu');
   }
-
+  
 }

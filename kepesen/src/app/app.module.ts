@@ -7,12 +7,11 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 
-
 import { routes } from './app.routes';
 
 import { OrderService } from './model/order.service';
 import { MenuService } from './model/menu.service';
-import { CookieService } from './service/cookie.service';
+import { IdbService } from './service/idb.service';
 
 import { AppComponent } from './app.component';
 import { UserLayoutComponent } from './user/user-layout/user-layout.component';
@@ -54,7 +53,7 @@ import { LoadingOverlayComponent } from './lib/loading-overlay/loading-overlay.c
   providers: [
     MenuService,
     OrderService,
-    CookieService
+    IdbService
   ],
   bootstrap: [AppComponent]
 })

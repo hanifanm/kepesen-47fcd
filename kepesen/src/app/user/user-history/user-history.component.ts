@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../model/order.service';
-import { CookieService } from '../../service/cookie.service';
+import { IdbService } from '../../service/idb.service';
 import { MenuModel, MenuService } from '../../model/menu.service';
 
 @Component({
@@ -10,22 +10,25 @@ import { MenuModel, MenuService } from '../../model/menu.service';
 })
 export class UserHistoryComponent implements OnInit {
 
-  isLoading : boolean = false;
+  // isLoading : boolean = false;
 
   constructor(
     private orderService : OrderService,
-    private cookieService : CookieService,
+    private idbService : IdbService,
     private menuService : MenuService
   ) {
+    this.initModel();
+  }
+
+  initModel = async() => {
+    let userId = await this.idbService.getUserId();
+    // this.isLoading = true;
     try {
-      let userId = this.cookieService.getUserId();
-      if(orderService.collections.length===0){
-        this.isLoading = true;
-        orderService.fetchData(userId)
-      }
-    } catch (err) {
-      alert(err);
+      await this.orderService.fetchData(userId.toString());
+    } catch(err){
+      console.log(err);
     }
+    // this.isLoading = false;
   }
 
   ngOnInit() {

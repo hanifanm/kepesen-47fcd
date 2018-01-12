@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
 import { OrderService, OrderModel, OrderStatus } from '../../model/order.service';
 import { PlateModel } from '../../model/plate.service';
-import { CookieService } from '../../service/cookie.service';
+import { IdbService } from '../../service/idb.service';
 
 @Component({
   selector: 'app-user-order',
@@ -23,7 +23,7 @@ export class UserOrderComponent implements OnInit {
   constructor(
     private orderService : OrderService,
     private menuService : MenuService,
-    private cookieService : CookieService,
+    private idbService : IdbService,
     private router : Router
   ) {
     if (this.orderService.newOrder !== null){
@@ -45,9 +45,11 @@ export class UserOrderComponent implements OnInit {
     this.initNewOrder();
   }
 
-  initNewOrder(){
-    this.newOrder.createdBy = this.cookieService.getUserId();
-    this.newOrder.updatedBy = this.cookieService.getUserId();
+  initNewOrder = async() => {
+    let userId = await this.idbService.getUserId();
+    console.log(userId);
+    this.newOrder.createdBy = userId.toString();
+    this.newOrder.updatedBy = userId.toString();
   }
 
   getMenuDetail(id : string) : MenuModel {

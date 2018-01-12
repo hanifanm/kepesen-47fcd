@@ -43,6 +43,7 @@ export class OrderService {
   public current : OrderModel;
   public newOrder : OrderModel;
   public isLoading : boolean;
+  public lastError : boolean;
 
   constructor (
     private http: HttpClient,
@@ -50,19 +51,25 @@ export class OrderService {
     this.collections = [];
     this.current = null;
     this.newOrder = null;
-    this.isLoading = false;
   }
 
   fetchData = (userId : string) => {
     this.collections = [];
     let params = new HttpParams();
     this.isLoading = true;
-    this.http.get(this.orderUrl + '?userId=' + userId)
-    .subscribe((response : any) => {
-      response.data.forEach(order => {
-        this.collections.push(order);
-      });
-      this.isLoading = false;
+    return new Promise( (resolve, reject) => {
+      this.http.get(this.orderUrl + '?userId=' + userId)
+        .subscribe(
+          (response : any) => {
+            response.data.forEach(order => this.collections.push(order));
+            resolve();
+            this.isLoading = false;
+          },
+          (error : any) => {
+            reject(error);
+            this.isLoading = false;
+          }
+        )
     })
   }
 
