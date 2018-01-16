@@ -47,7 +47,6 @@ export class UserOrderComponent implements OnInit {
 
   initNewOrder = async() => {
     let userId = await this.idbService.getUserId();
-    console.log(userId);
     this.newOrder.createdBy = userId.toString();
     this.newOrder.updatedBy = userId.toString();
   }
@@ -92,6 +91,7 @@ export class UserOrderComponent implements OnInit {
     }
     this.orderService.post(this.newOrder)
     .then( (res : any) => {
+      this.orderService.newOrder = null;
       this.router.navigateByUrl('user/history');
     })
     .catch((err : any) => {
@@ -105,6 +105,12 @@ export class UserOrderComponent implements OnInit {
     this.currentPlateIndex = this.newOrder.list.indexOf(plate);
     Object.assign(this.currentPlate, plate);
     this.currentPlate.toppingId = plate.toppingId.slice();
+    console.log(this.currentPlate);
+  }
+
+  onDeletePlate = (plate : PlateModel) => {
+    let index = this.newOrder.list.indexOf(plate);
+    this.newOrder.list.splice(index, 1);
   }
 
   isPlateShown() : boolean {

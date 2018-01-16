@@ -6,6 +6,15 @@
     border-radius: 3px;
 }
 
+.order-card-action {
+    float: right;
+    cursor: pointer;
+}
+
+.dropdown-menu>li>a {
+    font-size: 18px !important;
+}
+
 .topping {
     padding: 5px 5px 2px 5px;
     margin: 2px 3px;

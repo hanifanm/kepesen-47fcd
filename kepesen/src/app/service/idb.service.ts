@@ -41,7 +41,6 @@ export class IdbService {
     return new Promise( resolve => {
       this.get('userId').then( userId => {
         if(userId){
-          console.log('Get userId from indexedDB');
           resolve(userId);
         }
         else {

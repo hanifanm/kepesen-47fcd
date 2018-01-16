@@ -24,7 +24,7 @@ export class UserMenuComponent implements OnInit {
 
   ngOnInit() {
     if(this.menuService.collections.length===0){
-      this.menuService.fetchData();
+      this.menuService.fetch();
     }
   }
 

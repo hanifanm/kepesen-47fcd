@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../service/api.service';
+import { BaseService, IBaseService } from '../service/base.service';
 import HashMap from 'hashmap';
 
 export class MenuModel {
@@ -20,32 +22,30 @@ export class MenuModel {
   ){}
 }
 
+export interface IMenu {
+  id : string,
+  group : number,
+  name : string,
+  sambal : [string],
+  price : number,
+  price2 : number,
+  active : boolean,
+  ready : boolean,
+  image : string,
+  createdAt : number,
+  createdBy : string,
+  updatedAt : number,
+  updatedBy : string
+}
+
 @Injectable()
-export class MenuService {
+export class MenuService extends BaseService<IMenu>
+implements IBaseService<IMenu>{
 
-  private menuUrl = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api/menu';
-  public collections : MenuModel[];
-  public current : MenuModel;
-  private map : any;
-  private isLoading : boolean;
-
-  constructor (private http: HttpClient) {
-    this.collections = [];
-    this.map = new HashMap();
-    this.isLoading = false;
-  }
-
-  fetchData = () => {
-    this.collections = [];
-    this.map = new HashMap();
-    this.isLoading = true;
-    this.http.get(this.menuUrl).subscribe((response : any) => {
-      response.data.forEach(m => {
-        this.collections.push(m);
-        this.map.set(m.id, m);
-      });
-      this.isLoading = false;
-    })
+  constructor (
+    apiService: ApiService
+  ) {
+    super('/menu', apiService);
   }
 
   getMenu(group : number) : MenuModel[] {

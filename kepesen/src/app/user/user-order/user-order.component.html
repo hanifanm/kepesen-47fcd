@@ -1,5 +1,13 @@
-<div class="order-card ripple" *ngFor="let p of newOrder.list"
-  (click)="onEditPlate(p)">
+<div class="order-card" *ngFor="let p of newOrder.list">
+
+  <div class="dropdown">
+    <span class="glyphicon glyphicon-option-horizontal order-card-action" data-toggle="dropdown"></span>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li (click)="onEditPlate(p)"><a>Edit</a></li>
+      <li (click)="onDeletePlate(p)"><a>Hapus</a></li>
+    </ul>
+  </div>
+  
   <strong>Menu : </strong>{{getMenuDetail(p.menuId).name}}<br/>
   <strong>Sambal : </strong>{{p.sambal}}<br/>
   <strong>Level : </strong>{{p.chili}}<br/>
@@ -10,6 +18,7 @@
   <br/>
   <strong>Harga : </strong>{{p.price}}<br/>
 </div>
+
 <div class="order-card">
   <div class="form-group">
     <label>Total Harga:</label>
@@ -56,6 +65,7 @@
 </div>
 
 <app-user-plate *ngIf="isPlateShown()"
+  mode="edit"
   [onPlateOrder]="onPlateOrder"
   [onPlateCancel]="onPlateCancel"
   [currentPlate]="currentPlate">

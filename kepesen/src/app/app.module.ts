@@ -11,7 +11,10 @@ import { routes } from './app.routes';
 
 import { OrderService } from './model/order.service';
 import { MenuService } from './model/menu.service';
+
 import { IdbService } from './service/idb.service';
+import { BaseService } from './service/base.service';
+import { ApiService } from './service/api.service';
 
 import { AppComponent } from './app.component';
 import { UserLayoutComponent } from './user/user-layout/user-layout.component';
@@ -53,7 +56,9 @@ import { LoadingOverlayComponent } from './lib/loading-overlay/loading-overlay.c
   providers: [
     MenuService,
     OrderService,
-    IdbService
+    IdbService,
+    ApiService,
+    BaseService
   ],
   bootstrap: [AppComponent]
 })
