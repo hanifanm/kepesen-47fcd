@@ -9,7 +9,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { routes } from './app.routes';
 
-import { OrderService } from './model/order.service';
+import { OrderService } from './model/costumerorder.service';
 import { MenuService } from './model/menu.service';
 
 import { IdbService } from './service/idb.service';

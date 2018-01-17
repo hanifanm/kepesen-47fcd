@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
-import { OrderService, OrderModel, OrderStatus } from '../../model/order.service';
+import { OrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
 import { PlateModel } from '../../model/plate.service';
 import { IdbService } from '../../service/idb.service';
 
@@ -89,9 +89,10 @@ export class UserOrderComponent implements OnInit {
       this.isError = false;
       this.errorMessage = '';
     }
-    this.orderService.post(this.newOrder)
+    this.orderService.create(this.newOrder)
     .then( (res : any) => {
       this.orderService.newOrder = null;
+      this.orderService.collections = [];
       this.router.navigateByUrl('user/history');
     })
     .catch((err : any) => {

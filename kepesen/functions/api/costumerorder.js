@@ -40,6 +40,7 @@ api.post('/costumerorder', asyncMiddleware(function(req, res, next){
                 req.body.createdAt = moment(new Date()).format('YYYYMMDDHHmmssSSS');
                 req.body.updatedAt = req.body.createdAt;
                 req.body.price = countPrice(req.body.list, menus.val());
+                req.body.status = OrderStatus.create;
 
                 req.firebase.database().ref('order').push(req.body)
                 .then(function(){

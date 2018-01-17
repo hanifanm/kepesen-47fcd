@@ -1,4 +1,12 @@
 <div class="history-card" *ngFor="let order of orderService.collections">
+
+  <div class="dropdown">
+    <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li (click)="onCancelOrder(order)"><a>Cancel Order</a></li>
+    </ul>
+  </div>
+
   <strong>ID : </strong>{{order.id}}<br/>
   <strong>Nama Penerima : </strong>{{order.recName}}<br/>
   <strong>Lokasi Pengiriman : </strong>{{order.recAddress}}<br/>
@@ -10,3 +18,6 @@
 
 <app-loading *ngIf="orderService.isLoading"></app-loading>
 
+<div class="history-card" *ngIf="isHistoryEmpty()">
+  <i>Anda tidak memiliki histori pesanan. Silakan melakukan pesanan</i>
+</div>

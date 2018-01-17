@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../service/api.service';
 import { BaseService, IBaseService } from '../service/base.service';
 import HashMap from 'hashmap';

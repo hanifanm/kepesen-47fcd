@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { trigger, state, style, animate, transition} from '@angular/animations';
 
 import { MenuService, MenuModel } from '../../model/menu.service';
-import { OrderService, OrderModel } from '../../model/order.service';
+import { OrderService, OrderModel } from '../../model/costumerorder.service';
 import { PlateModel } from '../../model/plate.service';
 
 @Component({

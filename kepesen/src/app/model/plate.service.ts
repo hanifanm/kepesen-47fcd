@@ -7,3 +7,12 @@ export class PlateModel {
   public quantity : number = 1;
   constructor(){}
 }
+
+export interface IPlate {
+  menuId : string;
+  sambal : string;
+  chili : number;
+  toppingId : Array<string>;
+  price : number;
+  quantity : number;
+}

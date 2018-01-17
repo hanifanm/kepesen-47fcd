@@ -1,7 +1,7 @@
 <div class="order-card" *ngFor="let p of newOrder.list">
 
   <div class="dropdown">
-    <span class="glyphicon glyphicon-option-horizontal order-card-action" data-toggle="dropdown"></span>
+    <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
     <ul class="dropdown-menu dropdown-menu-right">
       <li (click)="onEditPlate(p)"><a>Edit</a></li>
       <li (click)="onDeletePlate(p)"><a>Hapus</a></li>
