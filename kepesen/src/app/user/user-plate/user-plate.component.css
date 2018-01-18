@@ -33,3 +33,8 @@
 .btn-chili {
     width: 40%
 }
+
+.list-group-item {
+    width: 50%;
+    display: inline-block;
+}

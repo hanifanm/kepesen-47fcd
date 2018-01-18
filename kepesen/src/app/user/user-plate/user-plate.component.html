@@ -31,7 +31,7 @@
           (click)="onToggleTopping(m)"
           *ngFor="let m of menuService.getMenu(2); let i=index"
           [ngClass]="{'list-group-item-success' : this.isToppingAdded(m)}">
-          {{m.name}}
+          {{m.name + ' [' + m.price2 + ']'}}
         </li>
       </ul>
     </div>
