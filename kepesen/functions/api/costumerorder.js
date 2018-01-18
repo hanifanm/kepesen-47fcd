@@ -37,7 +37,7 @@ api.post('/costumerorder', asyncMiddleware(function(req, res, next){
         if(err === null || err === undefined){
 
             req.firebase.database().ref('menu').once('value').then(menus => {
-                req.body.createdAt = moment(new Date()).format('YYYYMMDDHHmmssSSS');
+                req.body.createdAt = moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS');
                 req.body.updatedAt = req.body.createdAt;
                 req.body.price = countPrice(req.body.list, menus.val());
                 req.body.status = OrderStatus.create;
@@ -78,7 +78,7 @@ api.put('/costumerorder', asyncMiddleware(function(req, res){
             }
 
             req.firebase.database().ref('order/'+req.body.id).update({
-                updatedAt : moment(new Date()).format('YYYYMMDDHHmmssSSS'),
+                updatedAt : moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS'),
                 updatedBy : req.body.updatedBy,
                 status : req.body.status
             })

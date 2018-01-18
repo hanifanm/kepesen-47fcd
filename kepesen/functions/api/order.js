@@ -29,7 +29,7 @@ api.put('/order', function(req, res){
             }
 
             req.firebase.database().ref('order/'+req.body.id).update({
-                updatedAt : moment(new Date()).format('YYYYMMDDHHmmssSSS'),
+                updatedAt : moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS'),
                 updatedBy : req.body.updatedBy,
                 status : req.body.status
             })
@@ -45,9 +45,10 @@ api.put('/order', function(req, res){
 })
 
 api.get('/order', function(req, res){
+    var today = moment.utc().add(7, 'hours').format('YYYYMMDD');
     if(req.decoded.role === 1){
         req.firebase.database().ref('order').orderByChild('createdAt')
-            .startAt(moment(new Date()).format('YYYYMMDD')).endAt(moment(new Date()).format('YYYYMMDD') + '\uf8ff')
+            .startAt(today).endAt(today + '\uf8ff')
             .once('value').then(snap => {
                 var result = [];
                 Object.keys(snap.val()).forEach(function(key){
@@ -64,7 +65,7 @@ api.get('/order', function(req, res){
             })
     } else {
         req.firebase.database().ref('order').orderByChild('createdAt')
-            .startAt(moment(new Date()).format('YYYYMMDD')).endAt(moment(new Date()).format('YYYYMMDD') + '\uf8ff')
+            .startAt(today).endAt(today + '\uf8ff')
             .once('value').then(snap => {
                 var result = [];
                 Object.keys(snap.val()).forEach(function(key){
