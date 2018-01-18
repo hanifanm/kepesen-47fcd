@@ -20,6 +20,8 @@ export class UserOrderComponent implements OnInit {
   isMapOpen : boolean = false;
   isError : boolean = false;
   errorMessage : string = '';
+  isDeleteDialogShow : boolean = false;
+  tempPlate : PlateModel;
   constructor(
     private orderService : OrderService,
     private menuService : MenuService,
@@ -102,9 +104,15 @@ export class UserOrderComponent implements OnInit {
     console.log(this.currentPlate);
   }
 
-  onDeletePlate = (plate : PlateModel) => {
-    let index = this.newOrder.list.indexOf(plate);
+  onDeletePlateStart = (plate : PlateModel) => {
+    this.tempPlate = plate;
+    this.isDeleteDialogShow = true;
+  }
+
+  onDeletePlate = () => {
+    let index = this.newOrder.list.indexOf(this.tempPlate);
     this.newOrder.list.splice(index, 1);
+    this.onCloseDialog();
   }
 
   isPlateShown() : boolean {
@@ -123,13 +131,11 @@ export class UserOrderComponent implements OnInit {
   onDragEnd = ($event) => {
     this.newOrder.recLocation.lat = $event.coords.lat;
     this.newOrder.recLocation.lng = $event.coords.lng;
-    console.log(this.newOrder.recLocation);
   }
 
   onMapDblClick = ($event) => {
     this.newOrder.recLocation.lat = $event.coords.lat;
     this.newOrder.recLocation.lng = $event.coords.lng;
-    console.log(this.newOrder.recLocation);
   }
 
   onToggleMap = () => {
@@ -142,6 +148,10 @@ export class UserOrderComponent implements OnInit {
     }
     console.log(this.lat, this.lng);
     this.isMapOpen = !this.isMapOpen;
+  }
+
+  onCloseDialog = () => {
+    this.isDeleteDialogShow = false;
   }
 
 }

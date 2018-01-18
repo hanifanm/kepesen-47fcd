@@ -11,8 +11,9 @@ import { HttpParams } from '@angular/common/http';
 })
 export class UserHistoryComponent implements OnInit {
 
-  JSON : any = JSON;
-  isViewDialogShow : boolean = false;
+  JSON: any = JSON;
+  isViewDialogShow: boolean = false;
+  isCancelDialogShow: boolean = false;
 
   constructor(
     private orderService: OrderService,
@@ -44,6 +45,12 @@ export class UserHistoryComponent implements OnInit {
 
   onCloseDialog = () => {
     this.isViewDialogShow = false;
+    this.isCancelDialogShow = false;
+  }
+
+  onCancelOrderStart = (order : OrderModel) => {
+    this.orderService.current = order;
+    this.isCancelDialogShow = true;
   }
 
   onCancelOrder = async (order: OrderModel) => {
@@ -51,13 +58,14 @@ export class UserHistoryComponent implements OnInit {
     this.orderService.update({
       updatedBy: userId.toString(),
       status: OrderStatus.cancel,
-      id: order.id
+      id: this.orderService.current.id
     }).then((res: any) => {
       let params = new HttpParams().set('userId', userId.toString());
       this.orderService.fetch(params);
     }).catch((err: any) => {
       console.log(err);
     })
+    this.onCloseDialog();
   }
 
   onViewOrder = (order: OrderModel) => {
