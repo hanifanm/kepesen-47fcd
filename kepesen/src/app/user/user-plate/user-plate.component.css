@@ -37,4 +37,5 @@
 .list-group-item {
     width: 50%;
     display: inline-block;
+    cursor: pointer;
 }
