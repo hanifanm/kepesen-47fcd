@@ -50,14 +50,17 @@
       [latitude]="lat"
       [longitude]="lng"
       [zoom]="16"
-      [fullscreenControl]="true">
+      [fullscreenControl]="true"
+      [disableDoubleClickZoom]="true"
+      (mapDblClick)="onMapDblClick($event)">
       <agm-marker
-        [latitude]="lat"
-        [longitude]="lng"
+        [latitude]="newOrder.recLocation.lat"
+        [longitude]="newOrder.recLocation.lng"
         [markerDraggable]="true"
         (dragEnd)="onDragEnd($event)">
         </agm-marker>
     </agm-map>
+    <i>*Double click atau geser marker untuk memilih lokasi</i>
   </div>
   <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
   <button type="button" class="btn btn-success btn-lg btn-block ripple"

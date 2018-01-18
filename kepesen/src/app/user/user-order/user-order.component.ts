@@ -32,13 +32,6 @@ export class UserOrderComponent implements OnInit {
       this.newOrder = new OrderModel();
     }
     this.currentPlate = null;
-    if(this.newOrder.recLocation.lat===0){
-      this.lat = -6.880123732861788;
-      this.lng = 107.61204219265983;
-    } else {
-      this.lat = this.newOrder.recLocation.lat;
-      this.lng = this.newOrder.recLocation.lng;
-    }
   }
 
   ngOnInit() {
@@ -133,7 +126,21 @@ export class UserOrderComponent implements OnInit {
     console.log(this.newOrder.recLocation);
   }
 
+  onMapDblClick = ($event) => {
+    this.newOrder.recLocation.lat = $event.coords.lat;
+    this.newOrder.recLocation.lng = $event.coords.lng;
+    console.log(this.newOrder.recLocation);
+  }
+
   onToggleMap = () => {
+    if(this.newOrder.recLocation.lat===0){
+      this.lat = -6.880123732861788;
+      this.lng = 107.61204219265983;
+    } else {
+      this.lat = this.newOrder.recLocation.lat;
+      this.lng = this.newOrder.recLocation.lng;
+    }
+    console.log(this.lat, this.lng);
     this.isMapOpen = !this.isMapOpen;
   }
 
