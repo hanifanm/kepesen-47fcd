@@ -25,7 +25,8 @@
     color: black;
     border-radius: 6px;
     padding: 20px;
-    width: 60%;
+    width: 90%;
+    max-width: 450px;
     /*min-height: 30%;*/
     max-height: 80%;
     overflow-y: auto;
