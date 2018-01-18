@@ -1,4 +1,4 @@
-<div class="order-card" *ngFor="let p of newOrder.list">
+<div class="card-box" *ngFor="let p of newOrder.list">
 
   <div class="dropdown">
     <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
@@ -19,7 +19,7 @@
   <strong>Harga : </strong>{{p.price}}<br/>
 </div>
 
-<div class="order-card">
+<div class="card-box">
   <div class="form-group">
     <label>Total Harga:</label>
     <span class="pull-right h4">Rp. {{getTotalPrice() | number}}</span>

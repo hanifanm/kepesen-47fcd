@@ -27,6 +27,7 @@ import { SplashscreenComponent } from './user/splashscreen/splashscreen.componen
 import { ErrorPanelComponent } from './lib/error-panel/error-panel.component';
 import { LoadingComponent } from './lib/loading/loading.component';
 import { LoadingOverlayComponent } from './lib/loading-overlay/loading-overlay.component';
+import { DialogComponent } from './lib/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LoadingOverlayComponent } from './lib/loading-overlay/loading-overlay.c
     SplashscreenComponent,
     ErrorPanelComponent,
     LoadingComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

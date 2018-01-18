@@ -1,11 +1,3 @@
-.order-card {
-    margin: 10px 0;
-    background-color: white;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
-    padding: 10px;
-    border-radius: 3px;
-}
-
 .dropdown-menu>li>a {
     font-size: 18px !important;
 }

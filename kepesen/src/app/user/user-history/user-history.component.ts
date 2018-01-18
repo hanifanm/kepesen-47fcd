@@ -11,6 +11,9 @@ import { HttpParams } from '@angular/common/http';
 })
 export class UserHistoryComponent implements OnInit {
 
+  JSON : any = JSON;
+  isViewDialogShow : boolean = false;
+
   constructor(
     private orderService: OrderService,
     private idbService: IdbService,
@@ -35,16 +38,12 @@ export class UserHistoryComponent implements OnInit {
   ngOnInit() {
   }
 
-  getOrder(order) {
-    return JSON.stringify(order);
-  }
-
-  getMenuDetail(id: string): MenuModel {
-    return this.menuService.getOne(id);
-  }
-
   isHistoryEmpty(): boolean {
     return !this.orderService.isLoading && this.orderService.collections.length === 0
+  }
+
+  onCloseDialog = () => {
+    this.isViewDialogShow = false;
   }
 
   onCancelOrder = async (order: OrderModel) => {
@@ -59,6 +58,11 @@ export class UserHistoryComponent implements OnInit {
     }).catch((err: any) => {
       console.log(err);
     })
+  }
+
+  onViewOrder = (order: OrderModel) => {
+    this.orderService.current = order;
+    this.isViewDialogShow = true;
   }
 
 }

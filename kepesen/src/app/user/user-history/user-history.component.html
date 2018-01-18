@@ -3,6 +3,7 @@
   <div class="dropdown">
     <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
     <ul class="dropdown-menu dropdown-menu-right">
+      <li (click)="onViewOrder(order)"><a>View Detail</a></li>
       <li (click)="onCancelOrder(order)"><a>Cancel Order</a></li>
     </ul>
   </div>
@@ -21,3 +22,7 @@
 <div class="history-card" *ngIf="isHistoryEmpty()">
   <i>Anda tidak memiliki histori pesanan. Silakan melakukan pesanan</i>
 </div>
+
+<app-dialog *ngIf="isViewDialogShow" [(onCancel)]="onCloseDialog" title="Detail Pesanan">
+  <pre>{{JSON.stringify(orderService.current, null, 3)}}</pre>
+</app-dialog>

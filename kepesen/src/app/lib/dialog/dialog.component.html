@@ -1,0 +1,7 @@
+<div class="page-overlay" (click)="onCancel()">
+  <div class="center-overlay">
+    <button type="button" class="close" (click)="onCancel()">&times;</button>
+    <h3>{{dialogTitle}}</h3>
+    <ng-content></ng-content>
+  </div>
+</div>
