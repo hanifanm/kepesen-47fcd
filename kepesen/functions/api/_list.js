@@ -25,10 +25,13 @@ api.use(function(req, res, next){
         jwt.verify(token, secret, function(err, decoded){
             if(!err){
                 req.decoded = decoded;
+            } else {
+                req.nextMessage = 'error_decode_token'
             }
             next();
         })
     } else {
+        req.nextMessage = 'no_token'
         next();
     }
 });
@@ -43,8 +46,13 @@ api.use('/', require('./order'));
 var secret = 'kepesencisitu';
 
 api.use(function(err, req, res, next) {
-    var response = new Response(false, 500, null, 'An error occured.', err)
-    res.status(500).json(response.getResponse());
+    if(req.nextMessage==='no_token'){
+        var response = new Response(false, 401, null, 'Unauthorized', err)
+        res.status(401).json(response.getResponse());
+    } else {
+        var response = new Response(false, 500, null, req.nextMessage, err)
+        res.status(500).json(response.getResponse());
+    }
 });
 
 module.exports = api;

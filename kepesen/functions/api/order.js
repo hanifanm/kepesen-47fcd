@@ -45,6 +45,9 @@ api.put('/order', function(req, res){
 })
 
 api.get('/order', function(req, res){
+    if(!req.decoded){
+        next('Error decoding token');
+    }
     var today = moment.utc().add(7, 'hours').format('YYYYMMDD');
     if(req.decoded.role === 1){
         req.firebase.database().ref('order').orderByChild('createdAt')

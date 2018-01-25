@@ -45,14 +45,47 @@
   </table>
 </div>
 
-<app-loading *ngIf="orderService.isLoading"></app-loading>
+<app-loading *ngIf="isLoading()"></app-loading>
 
 <div class="card-box" *ngIf="isHistoryEmpty()">
   <i>Anda tidak memiliki histori pesanan. Silakan melakukan pesanan</i>
 </div>
 
 <app-dialog *ngIf="isViewDialogShow" [(onCancel)]="onCloseDialog" title="Detail Pesanan">
-  <pre>{{JSON.stringify(orderService.current, null, 3)}}</pre>
+  <div *ngFor="let p of orderService.current.list">
+    <table>
+      <tr>
+        <td class="plate-label"><strong>Menu</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">{{menuService.getOne(p.menuId).name}}</td>
+      </tr>
+      <tr *ngIf="p.sambal !== ''">
+        <td class="plate-label"><strong>Sambal</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">{{p.sambal}}</td>
+      </tr>
+      <tr *ngIf="p.sambal !== ''">
+        <td class="plate-label"><strong>Level</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">{{p.chili}}</td>
+      </tr>
+      <tr *ngIf="p.toppsingId && p.toppingId.length !== 0">
+        <td class="plate-label"><strong>Topping</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">
+          <span class="topping" *ngFor="let t of p.toppingId">
+            {{menuService.getOne(t).name}}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="plate-label"><strong>Harga</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value"><strong>{{p.price}}</strong></td>
+      </tr>
+    </table>
+    <br />
+  </div>
 </app-dialog>
 
 <app-dialog *ngIf="isCancelDialogShow" [(onCancel)]="onCloseDialog" title="Batalkan Pesanan">

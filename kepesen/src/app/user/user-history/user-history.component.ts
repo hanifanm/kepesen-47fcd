@@ -27,6 +27,13 @@ export class UserHistoryComponent implements OnInit {
   initModel = async () => {
     let userId = await this.idbService.getUserId();
     let userIdString = userId.toString();
+    if (this.menuService.collections.length === 0) {
+      try {
+        await this.menuService.fetch();
+      } catch (err) {
+        console.log(err);
+      }
+    }
     if (this.orderService.collections.length === 0) {
       try {
         let params = new HttpParams().set('userId', userIdString);
@@ -37,11 +44,15 @@ export class UserHistoryComponent implements OnInit {
     }
   }
 
+  isLoading() {
+    return this.orderService.isLoading || this.menuService.isLoading;
+  }
+
   ngOnInit() {
   }
 
   isHistoryEmpty(): boolean {
-    return !this.orderService.isLoading && this.orderService.collections.length === 0
+    return !this.isLoading() && this.orderService.collections.length === 0
   }
 
   onCloseDialog = () => {
@@ -72,6 +83,7 @@ export class UserHistoryComponent implements OnInit {
   onViewOrder = (order: OrderModel) => {
     this.orderService.current = order;
     this.isViewDialogShow = true;
+    console.log(order);
   }
 
   getMinuteDif(time1 : string, time2 : string){
