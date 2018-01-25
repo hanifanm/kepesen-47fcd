@@ -4,11 +4,19 @@
 
 .topping {
     padding: 5px 5px 2px 5px;
-    margin: 2px 3px;
+    margin: 2px 3px 2px 0;
     border-radius : 5px;
     background-color: #eee;
     display: inline-block;
 } 
+
+.order-label {
+    width : 100px;
+}
+
+.order-value {
+    padding-left : 5px;
+}
 
 agm-map {
     height: 300px;

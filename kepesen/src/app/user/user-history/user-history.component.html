@@ -1,5 +1,4 @@
 <div class="card-box" *ngFor="let order of orderService.collections">
-
   <div class="dropdown">
     <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
     <ul class="dropdown-menu dropdown-menu-right">
@@ -7,14 +6,43 @@
       <li (click)="onCancelOrderStart(order)"><a>Cancel Order</a></li>
     </ul>
   </div>
-
-  <strong>ID : </strong>{{order.id}}<br/>
-  <strong>Nama Penerima : </strong>{{order.recName}}<br/>
-  <strong>Lokasi Pengiriman : </strong>{{order.recAddress}}<br/>
-  <strong>Nomor Telepon Penerima : </strong>{{order.recPhone}}<br/>
-  <strong>Total Item : </strong>{{order.list.length}}<br/>
-  <strong>Status : </strong>{{order.status}}<br/>
-  <strong>Harga : </strong>{{order.price}}<br/>
+  <table>
+    <tr>
+      <td class="order-label"><strong>ID</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.id}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Nama Penerima</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.recName}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Alamat Pengiriman</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.recAddress}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Nomor Telepon</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.recPhone}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Banyaknya Item</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.list.length}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Harga</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.price}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Status</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{getStatus(order.status, order.createdAt)}}</td>
+    </tr>
+  </table>
 </div>
 
 <app-loading *ngIf="orderService.isLoading"></app-loading>

@@ -32,8 +32,7 @@ export class UserMenuComponent implements OnInit {
     return this.menuService.getMenu(group);
   }
 
-  onOrder = async(menu : MenuModel) => {
-    await new Promise(resolve => setTimeout(resolve, 100));
+  onOrder = (menu : MenuModel) => {
     this.currentPlate = new PlateModel();
     this.currentPlate.menuId = menu.id;
     this.menuService.current = menu;

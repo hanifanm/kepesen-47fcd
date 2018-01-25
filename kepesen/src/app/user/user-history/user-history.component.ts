@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { OrderService, OrderStatus, OrderModel } from '../../model/costumerorder.service';
 import { IdbService } from '../../service/idb.service';
 import { MenuModel, MenuService } from '../../model/menu.service';
@@ -71,6 +72,33 @@ export class UserHistoryComponent implements OnInit {
   onViewOrder = (order: OrderModel) => {
     this.orderService.current = order;
     this.isViewDialogShow = true;
+  }
+
+  getMinuteDif(time1 : string, time2 : string){
+    if(time1.substring(0,8)!==time2.substring(0,8)) return 9999;
+    let h1 = parseInt(time1.substring(8, 10));
+    let m1 = parseInt(time1.substring(10, 12));
+    let h2 = parseInt(time2.substring(8, 10));
+    let m2 = parseInt(time2.substring(10, 12));
+    let diff = (h1-h2)*60 + m1 - m2;
+    console.log(diff);
+    return diff;
+  }
+
+  getStatus = (st : number, createdAt : string) => {
+    switch(st){
+      case 1 : 
+        let now = moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS')
+        if(this.getMinuteDif(now, createdAt) < 15) return 'Menuggu konfirmasi.';
+        else return 'Waktu Habis, pesanan dibatalkan secara otomatis.'
+      case 3 : return 'Pesanan sedang diproses.';
+      case 4 : return 'Pesanan akan dikirimkan.';
+      case 5 : return 'Pesanan sedang dikirmkan.';
+      case 6 : return 'Pesanan dibatalkan oleh pembeli.';
+      case 7 : return 'Pesanan ditolak.';
+      case 8 : return 'Pemesan tidak ditemukan di lokasi.';
+      case 9 : return 'Pesanan diterima pembeli.';
+    }
   }
 
 }

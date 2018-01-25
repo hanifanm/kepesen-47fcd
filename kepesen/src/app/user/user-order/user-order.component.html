@@ -3,20 +3,42 @@
   <div class="dropdown">
     <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
     <ul class="dropdown-menu dropdown-menu-right">
-      <li (click)="onEditPlate(p)"><a>Edit</a></li>
-      <li (click)="onDeletePlateStart(p)"><a>Hapus</a></li>
+      <li (click)="onEditPlate(p)" class="ripple"><a>Edit</a></li>
+      <li (click)="onDeletePlateStart(p)" class="ripple"><a>Hapus</a></li>
     </ul>
   </div>
-  
-  <strong>Menu : </strong>{{getMenuDetail(p.menuId).name}}<br/>
-  <strong>Sambal : </strong>{{p.sambal}}<br/>
-  <strong>Level : </strong>{{p.chili}}<br/>
-  <strong>Topping : </strong>
-    <span class="topping" *ngFor="let t of p.toppingId">
-      {{getMenuDetail(t).name}}
-    </span>
-  <br/>
-  <strong>Harga : </strong>{{p.price}}<br/>
+
+  <table>
+    <tr>
+      <td class="order-label"><strong>Menu</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{getMenuDetail(p.menuId).name}}</td>
+    </tr>
+    <tr *ngIf="p.sambal !== ''">
+      <td class="order-label"><strong>Sambal</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{p.sambal}}</td>
+    </tr>
+    <tr *ngIf="p.sambal !== ''">
+      <td class="order-label"><strong>Level</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{p.chili}}</td>
+    </tr>
+    <tr *ngIf="p.toppingId.length !== 0">
+      <td class="order-label"><strong>Topping</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">
+        <span class="topping" *ngFor="let t of p.toppingId">
+          {{getMenuDetail(t).name}}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Harga</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value"><strong>{{p.price}}</strong></td>
+    </tr>
+  </table>
 </div>
 
 <div class="card-box">
@@ -30,7 +52,8 @@
   </div>
   <div class="form-group">
     <label>Alamat Pengiriman:</label>
-    <input type="text" class="form-control" [(ngModel)]="newOrder.recAddress">
+    <textarea rows="3" class="form-control" [(ngModel)]="newOrder.recAddress">
+    </textarea>
   </div>
   <div class="form-group">
     <label>Nomor Telepon Penerima:</label>
@@ -64,7 +87,8 @@
   </div>
   <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
   <button type="button" class="btn btn-success btn-lg btn-block ripple"
-      (click)="onSendOrder()">PESAN</button>
+    [disabled]="!isOrderValid()"
+    (click)="onSendOrder()">PESAN</button>
 </div>
 
 <app-user-plate *ngIf="isPlateShown()"

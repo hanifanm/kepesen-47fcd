@@ -5,3 +5,11 @@
 button {
     margin-left: 5px;
 }
+
+.order-label {
+    width : 150px;
+}
+
+.order-value {
+    padding-left : 5px;
+}

@@ -96,7 +96,6 @@ export class UserOrderComponent implements OnInit {
   }
 
   onEditPlate = async(plate : PlateModel) => {
-    await new Promise(resolve => setTimeout(resolve, 100));
     this.currentPlate = new PlateModel();
     this.currentPlateIndex = this.newOrder.list.indexOf(plate);
     Object.assign(this.currentPlate, plate);
@@ -152,6 +151,11 @@ export class UserOrderComponent implements OnInit {
 
   onCloseDialog = () => {
     this.isDeleteDialogShow = false;
+  }
+
+  isOrderValid = () => {
+    if(this.getTotalPrice()>10000) return true;
+    return false;
   }
 
 }
