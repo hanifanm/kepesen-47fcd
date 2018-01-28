@@ -1,0 +1,36 @@
+<div class="form-group">
+  <button class="btn btn-default" type="button">
+    <!--<span class="glyphicon glyphicon-refresh"></span>-->
+    Refresh
+  </button>
+  <input type="text" class="form-control filter pull-right"
+  placeholder="Filter" [(ngModel)]="filter">
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th *ngFor="let m of model">{{m.label}}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of getCollectionsFiltered(); let ix=index">
+      <td>{{ix+1}}</td>
+      <td *ngFor="let m of model">{{c[m.key]}}</td>
+      <td>
+        <div class="dropdown">
+          <span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown">
+          </span>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li *ngFor="let ra of rowAction"
+              (click)="onRowAction(ra.key, c)"
+            >
+              <a>{{ra.label}}</a>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -28,6 +28,11 @@ import { ErrorPanelComponent } from './lib/error-panel/error-panel.component';
 import { LoadingComponent } from './lib/loading/loading.component';
 import { LoadingOverlayComponent } from './lib/loading-overlay/loading-overlay.component';
 import { DialogComponent } from './lib/dialog/dialog.component';
+import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
+import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { TableComponent } from './lib/table/table.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,12 @@ import { DialogComponent } from './lib/dialog/dialog.component';
     ErrorPanelComponent,
     LoadingComponent,
     LoadingOverlayComponent,
-    DialogComponent
+    DialogComponent,
+    AdminLayoutComponent,
+    AdminOrderComponent,
+    AdminMenuComponent,
+    AdminLoginComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

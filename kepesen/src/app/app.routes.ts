@@ -5,6 +5,10 @@ import { UserLayoutComponent } from './user/user-layout/user-layout.component';
 import { UserMenuComponent } from './user/user-menu/user-menu.component';
 import { UserHistoryComponent } from './user/user-history/user-history.component';
 import { UserOrderComponent } from './user/user-order/user-order.component';
+import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
+import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 
 export const routes : Routes = [
     { 
@@ -29,6 +33,27 @@ export const routes : Routes = [
             {
                 path: 'history',
                 component: UserHistoryComponent,
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
+        path: 'admin/login',
+        component: AdminLoginComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: 'admin',
+        component: AdminLayoutComponent,
+        children: [
+            {
+                path: 'menu',
+                component: AdminMenuComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: 'order',
+                component: AdminOrderComponent,
                 pathMatch: 'full'
             }
         ]

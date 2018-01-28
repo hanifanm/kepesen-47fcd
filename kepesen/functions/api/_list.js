@@ -19,9 +19,11 @@ api.use(function(req, res, next){
     next();
 });
 
+var secret = 'kepesencisitu';
+
 api.use(function(req, res, next){
     var token = req.body['x-access-token'] || req.params['x-access-token'] || req.headers['x-access-token'] || '';
-    if(token) {
+    if(token!=='') {
         jwt.verify(token, secret, function(err, decoded){
             if(!err){
                 req.decoded = decoded;
@@ -41,16 +43,15 @@ api.use('/', require('./menu'));
 api.use('/', require('./costumerorder'));
 api.use('/', require('./order'));
 
-/////////////////////////TO MOVE
-
-var secret = 'kepesencisitu';
-
 api.use(function(err, req, res, next) {
     if(req.nextMessage==='no_token'){
         var response = new Response(false, 401, null, 'Unauthorized', err)
         res.status(401).json(response.getResponse());
-    } else {
-        var response = new Response(false, 500, null, req.nextMessage, err)
+    } else if (req.nextMessage==='error_decode_token'){
+        var response = new Response(false, 400, null, 'Wrong Token', err)
+        res.status(401).json(response.getResponse());
+    }else {
+        var response = new Response(false, 400, null, 'Uncategorized Error', err)
         res.status(500).json(response.getResponse());
     }
 });

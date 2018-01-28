@@ -14,6 +14,9 @@ var OrderStatus = {
 }
 
 api.put('/order', function(req, res){
+    if(!req.decoded){
+        next();
+    }
     if (!req.body.id || req.body.id==='' 
     || !req.body.updatedBy || req.body.updatedBy===''
     || !req.body.status || req.body.status==='') {
@@ -46,7 +49,7 @@ api.put('/order', function(req, res){
 
 api.get('/order', function(req, res){
     if(!req.decoded){
-        next('Error decoding token');
+        next();
     }
     var today = moment.utc().add(7, 'hours').format('YYYYMMDD');
     if(req.decoded.role === 1){
