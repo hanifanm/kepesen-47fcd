@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
-import { OrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
+import { CostumerOrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
 import { PlateModel } from '../../model/plate.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class UserMenuComponent implements OnInit {
 
   constructor(
     private menuService : MenuService,
-    private orderService : OrderService,
+    private orderService : CostumerOrderService,
     private router : Router
   ) {
     this.isPlateShown = false;

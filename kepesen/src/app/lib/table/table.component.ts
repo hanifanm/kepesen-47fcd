@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
   @Input() collections: any[];
   @Input() rowAction: IRowAction[];
   @Input() onRowAction: any;
+  @Input() onRefresh: any;
 
   filter: string = '';
 

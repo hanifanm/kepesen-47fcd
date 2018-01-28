@@ -69,7 +69,7 @@
         <td><strong>:</strong></td>
         <td class="order-value">{{p.chili}}</td>
       </tr>
-      <tr *ngIf="p.toppsingId && p.toppingId.length !== 0">
+      <tr *ngIf="p.toppingId && p.toppingId.length !== 0">
         <td class="plate-label"><strong>Topping</strong></td>
         <td><strong>:</strong></td>
         <td class="order-value">
@@ -90,6 +90,8 @@
 
 <app-dialog *ngIf="isCancelDialogShow" [(onCancel)]="onCloseDialog" title="Batalkan Pesanan">
   <h5>Apakah anda yakin?</h5>
-  <button type="button" class="btn btn-danger pull-right" (click)="onCancelOrder()">Batalkan</button>
-  <button type="button" class="btn btn-default pull-right" (click)="onCloseDialog()">Kembali</button>
+  <button type="button" class="btn btn-danger pull-right"
+    (click)="onCancelOrder()">Batalkan</button>
+  <button type="button" class="btn btn-default pull-right"
+    (click)="onCloseDialog()">Kembali</button>
 </app-dialog>

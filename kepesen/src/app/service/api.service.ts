@@ -10,7 +10,7 @@ export class ApiService {
   constructor(
     private http?: HttpClient
   ) {
-    this.header = new HttpHeaders({ 'x-access-token': 'asdasd123123' });
+    this.header = new HttpHeaders({ 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtlYWRtaW4iLCJyb2xlIjoxLCJpYXQiOjE1MTcxNDkzMzl9.CIp-eFBriaulB4Aei2QGEGUJEJ4411fPxplZiyyKKeg' });
   }
 
   get(apiName: string, params?: HttpParams) {

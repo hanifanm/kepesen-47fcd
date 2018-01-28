@@ -1,3 +1,64 @@
-<p>
-  admin-order works!
-</p>
+<app-table
+  [collections]="orderService.collections"
+  [model]="table"
+  [rowAction]="rowAction"
+  [(onRowAction)]="onRowAction"
+  [(onRefresh)]="onRefreshTable"
+></app-table>
+
+<app-dialog *ngIf="isViewDialogShow" [(onCancel)]="onCloseDialog" title="Detail Pesanan">
+  <div *ngFor="let p of orderService.current.list">
+    <table>
+      <tr>
+        <td class="plate-label"><strong>Menu</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">{{menuService.getOne(p.menuId).name}}</td>
+      </tr>
+      <tr *ngIf="p.sambal !== ''">
+        <td class="plate-label"><strong>Sambal</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">{{p.sambal}}</td>
+      </tr>
+      <tr *ngIf="p.sambal !== ''">
+        <td class="plate-label"><strong>Level</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">{{p.chili}}</td>
+      </tr>
+      <tr *ngIf="p.toppingId && p.toppingId.length !== 0">
+        <td class="plate-label"><strong>Topping</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value">
+          <span class="topping" *ngFor="let t of p.toppingId">
+            {{menuService.getOne(t).name}}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="plate-label"><strong>Harga</strong></td>
+        <td><strong>:</strong></td>
+        <td class="order-value"><strong>{{p.price}}</strong></td>
+      </tr>
+    </table>
+    <br />
+  </div>
+  <button *ngIf="orderService.current.status === 5"
+    type="button" class="btn btn-success pull-right"
+    (click)="onChangeStatus(9)">Finish</button>
+  <button *ngIf="orderService.current.status === 5"
+    type="button" class="btn btn-danger pull-right"
+    (click)="onChangeStatus(8)">User Not Exist</button>
+  <button *ngIf="orderService.current.status === 4"
+    type="button" class="btn btn-success pull-right"
+    (click)="onChangeStatus(5)">Deliver</button>
+  <button *ngIf="orderService.current.status === 3"
+    type="button" class="btn btn-success pull-right"
+    (click)="onChangeStatus(4)">Assign</button>
+  <button *ngIf="orderService.current.status === 1"
+    type="button" class="btn btn-success pull-right"
+    (click)="onChangeStatus(3)">Proses</button>
+  <button *ngIf="orderService.current.status === 1"
+    type="button" class="btn btn-danger pull-right"
+    (click)="onChangeStatus(7)">Tolak</button>
+  <button type="button" class="btn btn-default pull-right"
+    (click)="onCloseDialog()">Kembali</button>
+</app-dialog>

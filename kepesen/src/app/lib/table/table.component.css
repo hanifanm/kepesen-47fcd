@@ -18,6 +18,10 @@ tr {
     height : 50px;
 }
 
+table {
+    background-color: white;
+}
+
 tbody > tr:hover {
     background-color: #AAA !important;
     color: white;
@@ -34,4 +38,8 @@ td {
 
 .filter {
     width : 200px;
+}
+
+.table-header {
+    height: 50px;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
-import { OrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
+import { CostumerOrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
 import { PlateModel } from '../../model/plate.service';
 import { IdbService } from '../../service/idb.service';
 
@@ -23,7 +23,7 @@ export class UserOrderComponent implements OnInit {
   isDeleteDialogShow : boolean = false;
   tempPlate : PlateModel;
   constructor(
-    private orderService : OrderService,
+    private orderService : CostumerOrderService,
     private menuService : MenuService,
     private idbService : IdbService,
     private router : Router

@@ -30,9 +30,9 @@ export class OrderModel {
     public recAddress : string = '';
     public recPhone : string = '';
     public recLocation : Location = { lat : 0, lng : 0 }
-    public createdAt : number = 0
+    public createdAt : string = ''
     public createdBy : string = '';
-    public updatedAt : number = 0;
+    public updatedAt : string = '';
     public updatedBy : string = '';
     constructor(){ }
 }
@@ -46,14 +46,14 @@ export interface IOrder {
     recAddress : string;
     recPhone : string;
     recLocation : Location;
-    createdAt : number;
+    createdAt : string;
     createdBy : string;
-    updatedAt : number;
+    updatedAt : string;
     updatedBy : string;
 }
 
 @Injectable()
-export class OrderService extends BaseService<IOrder> 
+export class CostumerOrderService extends BaseService<IOrder> 
 implements IBaseService<IOrder>{
 
   public newOrder : OrderModel;

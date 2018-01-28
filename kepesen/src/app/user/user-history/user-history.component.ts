@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { OrderService, OrderStatus, OrderModel } from '../../model/costumerorder.service';
+import { CostumerOrderService, OrderStatus, OrderModel } from '../../model/costumerorder.service';
 import { IdbService } from '../../service/idb.service';
 import { MenuModel, MenuService } from '../../model/menu.service';
 import { HttpParams } from '@angular/common/http';
@@ -17,7 +17,7 @@ export class UserHistoryComponent implements OnInit {
   isCancelDialogShow: boolean = false;
 
   constructor(
-    private orderService: OrderService,
+    private orderService: CostumerOrderService,
     private idbService: IdbService,
     private menuService: MenuService
   ) {
