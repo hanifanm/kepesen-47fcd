@@ -13,7 +13,8 @@ export const OrderStatus = {
     cancel : 6,
     reject : 7,
     user_not_exist : 8,
-    receive : 9
+    receive : 9,
+    time_out : 10
 }
 
 interface Location {

@@ -1,9 +1,10 @@
-<div class="card-box" *ngFor="let order of orderService.collections">
+<div class="card-box" *ngFor="let order of orderService.collections"
+  [style.backgroundColor]="getStatusColor(order)">
   <div class="dropdown">
     <span class="glyphicon glyphicon-option-horizontal close" data-toggle="dropdown"></span>
     <ul class="dropdown-menu dropdown-menu-right">
       <li (click)="onViewOrder(order)"><a>View Detail</a></li>
-      <li (click)="onCancelOrderStart(order)"><a>Cancel Order</a></li>
+      <li *ngIf="order.status===1" (click)="onCancelOrderStart(order)"><a>Cancel Order</a></li>
     </ul>
   </div>
   <table>
@@ -40,7 +41,7 @@
     <tr>
       <td class="order-label"><strong>Status</strong></td>
       <td><strong>:</strong></td>
-      <td class="order-value">{{getStatus(order.status, order.createdAt)}}</td>
+      <td class="order-value">{{getStatusString(order)}}</td>
     </tr>
   </table>
 </div>

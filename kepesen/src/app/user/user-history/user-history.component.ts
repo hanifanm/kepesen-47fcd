@@ -42,6 +42,12 @@ export class UserHistoryComponent implements OnInit {
         console.log(err);
       }
     }
+    for(let i=0; i<this.orderService.collections.length; i++){
+      let order = this.orderService.collections[i];
+      if(order.status!==OrderStatus.create) continue;
+      let now = moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS');
+      if(this.getMinuteDif(now, order.createdAt) > 15) order.status = OrderStatus.time_out;
+    }
   }
 
   isLoading() {
@@ -96,12 +102,9 @@ export class UserHistoryComponent implements OnInit {
     return diff;
   }
 
-  getStatus = (st : number, createdAt : string) => {
-    switch(st){
-      case 1 : 
-        let now = moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS')
-        if(this.getMinuteDif(now, createdAt) < 15) return 'Menuggu konfirmasi.';
-        else return 'Waktu Habis, pesanan dibatalkan secara otomatis.'
+  getStatusString = (order : OrderModel) => {
+    switch(order.status){
+      case 1 : return 'Menuggu konfirmasi.';
       case 3 : return 'Pesanan sedang diproses.';
       case 4 : return 'Pesanan akan dikirimkan.';
       case 5 : return 'Pesanan sedang dikirmkan.';
@@ -109,7 +112,16 @@ export class UserHistoryComponent implements OnInit {
       case 7 : return 'Pesanan ditolak.';
       case 8 : return 'Pemesan tidak ditemukan di lokasi.';
       case 9 : return 'Pesanan diterima pembeli.';
+      case 10 : return 'Waktu Habis, pesanan dibatalkan secara otomatis.';
     }
+  }
+
+  getStatusColor = (order : OrderModel) => {
+    if(order.status === OrderStatus.cancel
+    || order.status === OrderStatus.reject
+    || order.status === OrderStatus.user_not_exist
+    || order.status === OrderStatus.time_out) return 'rgba(255, 0, 0, 0.1)';
+    if(order.status === OrderStatus.receive) return 'rgba(0, 255, 0, 0.1)'
   }
 
 }

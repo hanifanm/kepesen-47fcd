@@ -62,7 +62,7 @@ api.get('/order', function(req, res){
                     temp.id = key;
                     result.push(temp);
                 })
-                result.sort(function(a, b){ return a.createdAt - b.createdAt });
+                result.sort(function(a, b){ return b.createdAt - a.createdAt });
                 var response = new res.Response(true, 200, result, null, null);
                 res.status(200).json(response.getResponse());
             }).catch(function(err){
@@ -85,7 +85,7 @@ api.get('/order', function(req, res){
                         result.push(temp);   
                     }
                 })
-                result.sort(function(a, b){ return a.createdAt - b.createdAt });
+                result.sort(function(a, b){ return b.createdAt - a.createdAt });
                 var response = new res.Response(true, 200, result, null, null);
                 res.status(200).json(response.getResponse());
             }).catch(function(err){
