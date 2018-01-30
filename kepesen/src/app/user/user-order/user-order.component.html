@@ -51,13 +51,14 @@
     <input type="text" class="form-control" [(ngModel)]="newOrder.recName">
   </div>
   <div class="form-group">
-    <label>Alamat Pengiriman:</label>
+    <label>Alamat Pengiriman dan Patokan:</label>
     <textarea rows="3" class="form-control" [(ngModel)]="newOrder.recAddress">
     </textarea>
   </div>
   <div class="form-group">
     <label>Nomor Telepon Penerima:</label>
-    <input type="text" class="form-control" [(ngModel)]="newOrder.recPhone">
+    <input type="text" class="form-control" [(ngModel)]="newOrder.recPhone"
+    placeholder="08xxxxxxxxxx">
   </div>
   <div class="form-group">
     <label>Lokasi Pengiriman:</label>
@@ -76,19 +77,26 @@
       [fullscreenControl]="true"
       [disableDoubleClickZoom]="true"
       (mapDblClick)="onMapDblClick($event)">
+      <agm-circle
+        [latitude]="storeLocation.lat"
+        [longitude]="storeLocation.lon"
+        [clickable]="false"
+        [fillOpacity]="0.1"
+        [radius]="maxDist">
+      </agm-circle>
       <agm-marker
         [latitude]="newOrder.recLocation.lat"
         [longitude]="newOrder.recLocation.lng"
         [markerDraggable]="true"
         (dragEnd)="onDragEnd($event)">
-        </agm-marker>
+      </agm-marker>
     </agm-map>
     <i>*Double click atau geser marker untuk memilih lokasi</i>
   </div>
   <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
   <button type="button" class="btn btn-success btn-lg btn-block ripple"
     [disabled]="!isOrderValid()"
-    (click)="onSendOrder()">PESAN</button>
+    (click)="onClickOrder()">PESAN</button>
 </div>
 
 <app-user-plate *ngIf="isPlateShown()"
@@ -101,5 +109,11 @@
 <app-dialog *ngIf="isDeleteDialogShow" [(onCancel)]="onCloseDialog" title="Hapus Menu">
   <h5>Apakah anda yakin?</h5>
   <button type="button" class="btn btn-danger pull-right" (click)="onDeletePlate()">Hapus</button>
+  <button type="button" class="btn btn-default pull-right" (click)="onCloseDialog()">Kembali</button>
+</app-dialog>
+
+<app-dialog *ngIf="isSubmitDialogShow" [(onCancel)]="onCloseDialog" title="Pesan Sekarang">
+  <h5>Pastikan data yang anda isikan sudah benar</h5>
+  <button type="button" class="btn btn-success pull-right" (click)="onSendOrder()">Pesan</button>
   <button type="button" class="btn btn-default pull-right" (click)="onCloseDialog()">Kembali</button>
 </app-dialog>

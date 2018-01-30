@@ -93,7 +93,6 @@ export class UserHistoryComponent implements OnInit {
     let h2 = parseInt(time2.substring(8, 10));
     let m2 = parseInt(time2.substring(10, 12));
     let diff = (h1-h2)*60 + m1 - m2;
-    console.log(diff);
     return diff;
   }
 

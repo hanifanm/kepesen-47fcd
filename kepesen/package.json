@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
     "core-js": "^2.4.1",
+    "geodist": "^0.2.1",
     "hashmap": "^2.3.0",
     "idb": "^2.0.4",
     "moment": "^2.20.1",

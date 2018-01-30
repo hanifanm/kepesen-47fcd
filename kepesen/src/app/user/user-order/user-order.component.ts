@@ -4,6 +4,7 @@ import { MenuService, MenuModel } from '../../model/menu.service';
 import { CostumerOrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
 import { PlateModel } from '../../model/plate.service';
 import { IdbService } from '../../service/idb.service';
+import geodist from 'geodist';
 
 @Component({
   selector: 'app-user-order',
@@ -21,7 +22,13 @@ export class UserOrderComponent implements OnInit {
   isError : boolean = false;
   errorMessage : string = '';
   isDeleteDialogShow : boolean = false;
+  isSubmitDialogShow : boolean = false;
   tempPlate : PlateModel;
+  storeLocation = {
+    lat : -6.880123732861788,
+    lon: 107.61204219265983
+  }
+  maxDist = 2000; //meters
   constructor(
     private orderService : CostumerOrderService,
     private menuService : MenuService,
@@ -58,16 +65,34 @@ export class UserOrderComponent implements OnInit {
     return totalPrice;
   }
 
-  onSendOrder(){
+  onClickOrder(){
     let error = '';
+    let target = {
+      lat : this.newOrder.recLocation.lat,
+      lon : this.newOrder.recLocation.lng
+    }
+    let dist = geodist(this.storeLocation, target, {exact : true, unit: 'km'});
+    if(dist>this.maxDist/1000){
+      error = 'Jarak pengiriman maksimum 2 KM.'
+    }
     if(this.newOrder.recLocation.lat === 0){
       error = 'Lokasi Pengiriman harus dipilih.'
+    }
+    if(this.newOrder.recPhone.length>13 || this.newOrder.recPhone.length<10){
+      error = 'Format nomor telpon salah.'
+    }
+    var reg = /^[0-9]+$/;
+    if(!reg.test(this.newOrder.recPhone)){
+      error = 'Format nomor telpon salah.'
     }
     if(this.newOrder.recPhone === ''){
       error = 'Nomor Telepon Penerima wajib diisi.'
     }
+    if(this.newOrder.recAddress.length<30){
+      error = "Alamat Pengiriman minimum 30 karakter."
+    }
     if(this.newOrder.recAddress === ''){
-      error = 'Lokasi Pengiriman wajib diisi.'
+      error = 'Alamat Pengiriman wajib diisi.'
     }
     if(this.newOrder.recName === ''){
       error = 'Nama Penerima wajib diisi.'
@@ -83,7 +108,11 @@ export class UserOrderComponent implements OnInit {
     } else {
       this.isError = false;
       this.errorMessage = '';
+      this.isSubmitDialogShow = true;
     }
+  }
+
+  onSendOrder = () => {
     this.orderService.create(this.newOrder)
     .then( (res : any) => {
       this.orderService.newOrder = null;
@@ -100,7 +129,6 @@ export class UserOrderComponent implements OnInit {
     this.currentPlateIndex = this.newOrder.list.indexOf(plate);
     Object.assign(this.currentPlate, plate);
     this.currentPlate.toppingId = plate.toppingId.slice();
-    console.log(this.currentPlate);
   }
 
   onDeletePlateStart = (plate : PlateModel) => {
@@ -133,24 +161,30 @@ export class UserOrderComponent implements OnInit {
   }
 
   onMapDblClick = ($event) => {
+    let target = {
+      lat : $event.coords.lat,
+      lon : $event.coords.lng
+    }
+    let dist = geodist(this.storeLocation, target, {exact : true, unit: 'km'});
+    if(dist>this.maxDist/1000) return;
     this.newOrder.recLocation.lat = $event.coords.lat;
     this.newOrder.recLocation.lng = $event.coords.lng;
   }
 
   onToggleMap = () => {
     if(this.newOrder.recLocation.lat===0){
-      this.lat = -6.880123732861788;
-      this.lng = 107.61204219265983;
+      this.lat = this.storeLocation.lat;
+      this.lng = this.storeLocation.lon;
     } else {
       this.lat = this.newOrder.recLocation.lat;
       this.lng = this.newOrder.recLocation.lng;
     }
-    console.log(this.lat, this.lng);
     this.isMapOpen = !this.isMapOpen;
   }
 
   onCloseDialog = () => {
     this.isDeleteDialogShow = false;
+    this.isSubmitDialogShow = false;
   }
 
   isOrderValid = () => {
