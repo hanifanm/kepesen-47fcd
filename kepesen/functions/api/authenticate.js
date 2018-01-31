@@ -16,6 +16,10 @@ api.post('/authenticate', function(req, res){
     var db = req.firebase.database();
     db.ref('user').orderByChild('username').equalTo(username)
         .once('value').then(snap => {
+            if(snap.val() === null){
+                var response = new res.Response(false, 400, null, 'User not found.', {})
+                res.status(400).json(response.getResponse());
+            }
             snap.forEach(function(user){
                 if(user.val() === null){
                     var response = new res.Response(false, 400, null, 'User not found.', {})
