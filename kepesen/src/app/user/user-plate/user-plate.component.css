@@ -34,6 +34,11 @@
     width: 40%
 }
 
+.list-group {
+    display: flex; 
+    flex-flow: row wrap;
+}
+
 .list-group-item {
     width: 50%;
     display: inline-block;
