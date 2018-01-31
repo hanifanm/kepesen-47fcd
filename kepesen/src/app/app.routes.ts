@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-
+import { AuthGuard } from './service/auth.guard';
 import { SplashscreenComponent } from './user/splashscreen/splashscreen.component';
 import { UserLayoutComponent } from './user/user-layout/user-layout.component';
 import { UserMenuComponent } from './user/user-menu/user-menu.component';
@@ -45,7 +45,13 @@ export const routes : Routes = [
     {
         path: 'admin',
         component: AdminLayoutComponent,
+        canActivate: [AuthGuard],
         children: [
+            {
+                path: '',
+                redirectTo: '/admin/order',
+                pathMatch: 'full'
+            },
             {
                 path: 'menu',
                 component: AdminMenuComponent,

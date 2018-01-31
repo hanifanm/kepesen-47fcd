@@ -16,6 +16,8 @@ import { OrderService } from './model/order.service';
 import { IdbService } from './service/idb.service';
 import { BaseService } from './service/base.service';
 import { ApiService } from './service/api.service';
+import { UserService } from './service/user.service';
+import { AuthGuard } from './service/auth.guard';
 
 import { AppComponent } from './app.component';
 import { UserLayoutComponent } from './user/user-layout/user-layout.component';
@@ -72,7 +74,9 @@ import { TableComponent } from './lib/table/table.component';
     OrderService,
     IdbService,
     ApiService,
-    BaseService
+    BaseService,
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -22,6 +22,7 @@ export class TableComponent implements OnInit {
   @Input() rowAction: IRowAction[];
   @Input() onRowAction: any;
   @Input() onRefresh: any;
+  @Input() loading: boolean;
 
   filter: string = '';
 

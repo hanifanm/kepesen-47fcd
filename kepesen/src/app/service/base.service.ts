@@ -22,7 +22,7 @@ export class BaseService<T> {
         private apiService: ApiService
     ) {
         this.apiName = apiName,
-            this.collections = [];
+        this.collections = [];
         this.map = new HashMap();
     }
 

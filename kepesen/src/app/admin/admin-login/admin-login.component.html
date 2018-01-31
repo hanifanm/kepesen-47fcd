@@ -1,3 +1,17 @@
-<p>
-  admin-login works!
-</p>
+<div class="login-container card-box">
+  <h2>ADMIN KEPESEN</h2>
+  <hr/>
+  <div class="form-group">
+    <label>Username:</label>
+    <input type="text" class="form-control" [(ngModel)]="username">
+  </div>
+  <div class="form-group">
+    <label>Password:</label>
+    <input type="password" class="form-control" [(ngModel)]="password">
+  </div>
+  <div class="form-group" *ngIf="user.errorMessage">
+    <strong>{{user.errorMessage}}</strong>
+  </div>
+  <app-loading *ngIf="user.isLoading"></app-loading>
+  <button class="btn btn-success ripple" (click)="onClickLogin()">Login</button>
+</div>

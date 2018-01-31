@@ -4,12 +4,7 @@ import idb from 'idb';
 @Injectable()
 export class IdbService {
 
-  // dbPromise : any;
-
   constructor() {
-    // this.dbPromise = idb.open('keyval-store', 1, db => {
-    //   db.createObjectStore('keyval');
-    // });
   }
 
   dbPromise(){

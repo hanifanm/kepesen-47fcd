@@ -1,6 +1,7 @@
 <app-table
   [collections]="orderService.collections"
   [model]="table"
+  [loading]="orderService.isLoading"
   [rowAction]="rowAction"
   [(onRowAction)]="onRowAction"
   [(onRefresh)]="onRefreshTable"
