@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
-import { IdbService } from './idb.service';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class UserService {
 
-  private token : string;
   errorMessage : string;
   isLoading : boolean;
 
@@ -15,21 +14,17 @@ export class UserService {
     private http : HttpClient,
     private router : Router,
     private apiService: ApiService,
-    private idbService: IdbService
+    private tokenService : TokenService
   ) {
     this.errorMessage = null;
   }
 
-  getToken = async() => {
-    if(this.token) return this.token;
-    this.token = await this.idbService.get('token');
-    if(!this.token) this.router.navigateByUrl('/admin/login');
-    return this.token;
-  }
-
   isUserLoggedIn = () => {
-    if(this.token && this.token !=='') return true;
-    this.getToken();
+    this.tokenService.getToken().then(token => {
+      if(!token || token===''){
+        this.router.navigateByUrl('/admin/login');
+      }
+    })
     return true; //temporary true
   }
 
@@ -38,18 +33,15 @@ export class UserService {
     this.isLoading = true;
     this.apiService.post('/authenticate', {
       auth : btoa(username + ':' + password)
-    }).subscribe(
-      (data : any) => {
-        this.isLoading = false;
-        this.token = data['x-access-token'];
-        this.idbService.set('token', this.token);
-        this.router.navigateByUrl('/admin/order');
-      },
-      (error : any) => {
-        this.isLoading = false;
-        this.errorMessage = error.error.message;
-      }
-    )
+    }).then((data : any) => {
+      this.isLoading = false;
+      let token = data['x-access-token'];
+      this.tokenService.setToken(token);
+      this.router.navigateByUrl('/admin/order');
+    }).catch((error : any) => {
+      this.isLoading = false;
+      this.errorMessage = error.error.message;
+    })
   }
 
 }

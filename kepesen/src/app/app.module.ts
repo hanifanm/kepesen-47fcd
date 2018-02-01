@@ -17,6 +17,7 @@ import { IdbService } from './service/idb.service';
 import { BaseService } from './service/base.service';
 import { ApiService } from './service/api.service';
 import { UserService } from './service/user.service';
+import { TokenService } from './service/token.service';
 import { AuthGuard } from './service/auth.guard';
 
 import { AppComponent } from './app.component';
@@ -76,7 +77,8 @@ import { TableComponent } from './lib/table/table.component';
     ApiService,
     BaseService,
     AuthGuard,
-    UserService
+    UserService,
+    TokenService
   ],
   bootstrap: [AppComponent]
 })

@@ -34,7 +34,6 @@ export class AdminOrderComponent implements OnInit {
     if (this.orderService.collections.length === 0) {
       try {
         await this.orderService.fetch();
-        console.log(this.orderService.collections);
       } catch (err) {
         console.log(err);
       }
@@ -69,7 +68,6 @@ export class AdminOrderComponent implements OnInit {
   }
 
   onChangeStatus = (newStatus) => {
-    console.log(newStatus);
     this.orderService.update({
       updatedBy: 'admin',
       status: newStatus,

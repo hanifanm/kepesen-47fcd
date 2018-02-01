@@ -1,43 +1,92 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { TokenService } from './token.service';
 
 
 @Injectable()
 export class ApiService {
 
   database = 'https://us-central1-kepesen-47fcd.cloudfunctions.net/rest/api';
-  header: HttpHeaders
+  // header: HttpHeaders
 
   constructor(
-    private http?: HttpClient
-  ) {
-    this.header = new HttpHeaders({ 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtlYWRtaW4iLCJyb2xlIjoxLCJpYXQiOjE1MTcxNDkzMzl9.CIp-eFBriaulB4Aei2QGEGUJEJ4411fPxplZiyyKKeg' });
+    private http: HttpClient,
+    private tokenService: TokenService 
+  ) { }
+
+  getHeader = async() : Promise<HttpHeaders> => {
+    let token = await this.tokenService.getToken();
+    return new HttpHeaders({ 'x-access-token': token });
   }
 
-  get(apiName: string, params?: HttpParams) {
-    return this.http.get(this.database + apiName, {
-      headers: this.header,
-      params: params
+  get = async(apiName: string, params?: HttpParams) => {
+    let header = await this.getHeader();
+    let result = await new Promise((resolve, reject) => {
+      this.http.get(this.database + apiName, {
+        headers: header,
+        params: params
+      }).subscribe(
+        (data : any) => {
+          resolve(data);
+        },
+        (err : any) => {
+          reject(err);
+        }
+      )
     })
+    return result;
   }
 
-  post(apiName: string, body?: any) {
-    return this.http.post(this.database + apiName, body, {
-      headers: this.header
+  post = async(apiName: string, body?: any) => {
+    let header = await this.getHeader();
+    let result = await new Promise((resolve, reject) => {
+      this.http.post(this.database + apiName, body, {
+        headers: header
+      }).subscribe(
+        (data : any) => {
+          resolve(data);
+        },
+        (err : any) => {
+          reject(err);
+        }
+      )
     })
+    return result;
   }
 
-  put(apiName: string, body?: any) {
-    return this.http.put(this.database + apiName, body, {
-      headers: this.header
+  put = async(apiName: string, body?: any) => {
+    let header = await this.getHeader();
+    let result = await new Promise((resolve, reject) => {
+      this.http.put(this.database + apiName, body, {
+        headers: header
+      }).subscribe(
+        (data : any) => {
+          resolve(data);
+        },
+        (err : any) => {
+          reject(err);
+        }
+      )
     })
+    return result;
   }
 
-  delete(apiName: string, params?: HttpParams) {
-    return (this.database + apiName, {
-      headers: this.header,
-      params: params
+  delete = async(apiName: string, params?: HttpParams) => {
+    let header = await this.getHeader();
+    let result = await new Promise((resolve, reject) => {
+      this.http.delete(this.database + apiName, {
+        headers: header,
+        params: params
+      }).subscribe(
+        (data : any) => {
+          resolve(data);
+        },
+        (err : any) => {
+          reject(err);
+        }
+      )
     })
+    return result;
   }
 
 }

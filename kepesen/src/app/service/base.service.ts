@@ -31,51 +31,45 @@ export class BaseService<T> {
         this.isLoading = true;
         return new Promise((resolve) => {
             this.apiService.get(this.apiName, params)
-                .subscribe(
-                    (data: any) => {
-                        data.data.forEach(d => {
-                            this.collections.push(d);
-                            this.map.set(d.id, d);
-                        });
-                        this.isLoading = false;
-                        resolve();
-                    },
-                    (error: any) => {
-                        this.lastError = error;
-                        this.isLoading = false;
-                        resolve();
-                    }
-                )
+                .then((data: any) => {
+                    data.data.forEach(d => {
+                        this.collections.push(d);
+                        this.map.set(d.id, d);
+                    });
+                    this.isLoading = false;
+                    resolve();
+                })
+                .catch((error: any) => {
+                    this.lastError = error;
+                    this.isLoading = false;
+                    resolve();
+                })
         })
     }
 
     create(body?: any) {
         return new Promise((resolve) => {
             this.apiService.post(this.apiName, body)
-                .subscribe(
-                    (data: any) => {
-                        resolve();
-                    },
-                    (error: any) => {
-                        this.lastError = error;
-                        resolve();
-                    }
-                )
+                .then((data: any) => {
+                    resolve();
+                })
+                .catch((error: any) => {
+                    this.lastError = error;
+                    resolve();
+                })
         })
     }
 
     update(body?: any) {
         return new Promise((resolve) => {
             this.apiService.put(this.apiName, body)
-                .subscribe(
-                    (data: any) => {
-                        resolve();
-                    },
-                    (error : any) => {
-                        this.lastError = error;
-                        resolve();
-                    }
-                )
+                .then((data: any) => {
+                    resolve();
+                })
+                .catch((error : any) => {
+                    this.lastError = error;
+                    resolve();
+                })
         })
     }
 
