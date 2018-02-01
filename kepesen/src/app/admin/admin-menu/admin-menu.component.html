@@ -1,3 +1,6 @@
-<p>
-  admin-menu works!
-</p>
+<app-table
+  [collections]="menuService.collections"
+  [model]="table"
+  [loading]="menuService.isLoading"
+  [(onRefresh)]="onRefreshTable"
+></app-table>

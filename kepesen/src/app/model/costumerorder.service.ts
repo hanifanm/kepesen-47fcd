@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { PlateModel, IPlate } from './plate.service';
 import { ApiService } from '../service/api.service';
 import { BaseService, IBaseService } from '../service/base.service';
+import * as moment from 'moment';
 
 export const OrderStatus = {
     create : 1,
@@ -35,7 +36,20 @@ export class OrderModel {
     public createdBy : string = '';
     public updatedAt : string = '';
     public updatedBy : string = '';
+
     constructor(){ }
+
+    get createdTime() : string {
+      if(this.createdAt==='') return '';
+      let year = parseInt(this.createdAt.substring(0, 4));
+      let month = parseInt(this.createdAt.substring(4, 6));
+      let day = parseInt(this.createdAt.substring(6, 8));
+      let hours = parseInt(this.createdAt.substring(8, 10));
+      let minutes = parseInt(this.createdAt.substring(10, 12));
+      let createdTime = new Date(year, month, day, hours, minutes);
+      return moment(createdTime).format('DD/MM/YYYYY HH:mm');
+    }
+
 }
 
 export interface IOrder {

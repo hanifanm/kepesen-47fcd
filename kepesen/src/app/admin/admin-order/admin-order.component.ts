@@ -18,6 +18,9 @@ export class AdminOrderComponent implements OnInit {
     private menuService: MenuService
   ) {
     this.initModel();
+    let order = new OrderModel();
+    order.createdAt = '201806012359123';
+    console.log(order.createdTime);
   }
 
   ngOnInit() {
