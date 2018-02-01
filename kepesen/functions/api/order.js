@@ -57,12 +57,14 @@ api.get('/order', function(req, res){
             .startAt(today).endAt(today + '\uf8ff')
             .once('value').then(snap => {
                 var result = [];
-                Object.keys(snap.val()).forEach(function(key){
-                    var temp = snap.val()[key];
-                    temp.id = key;
-                    result.push(temp);
-                })
-                result.sort(function(a, b){ return b.createdAt - a.createdAt });
+                if(snap.val()){
+                     Object.keys(snap.val()).forEach(function(key){
+                        var temp = snap.val()[key];
+                        temp.id = key;
+                        result.push(temp);
+                    })
+                    result.sort(function(a, b){ return b.createdAt - a.createdAt });
+                }
                 var response = new res.Response(true, 200, result, null, null);
                 res.status(200).json(response.getResponse());
             }).catch(function(err){
