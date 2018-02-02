@@ -12,7 +12,7 @@ export class AdminMenuComponent implements OnInit {
   constructor(
     private menuService: MenuService
   ) {
-    this.initModel();
+    this.initModel( );
   }
 
   initModel = async() => {
