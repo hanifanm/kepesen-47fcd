@@ -20,13 +20,13 @@ api.put('/order', function(req, res){
     if (!req.body.id || req.body.id==='' 
     || !req.body.updatedBy || req.body.updatedBy===''
     || !req.body.status || req.body.status==='') {
-        var response = new res.Response(false, 400, null, 'Request body doesnt match.', err)
+        var response = new res.Response(false, 400, null, 'Request body doesnt match.', null)
         res.status(400).json(response.getResponse());
     } else {
 
         req.firebase.database().ref('order/'+req.body.id).once('value').then(order => {
             
-            if(order.val()===null){
+            if(order.val()==null){
                 var response = new res.Response(false, 400, null, 'Data with this id doesnt exist.', err)
                 res.status(400).json(response.getResponse());
             }
@@ -36,13 +36,16 @@ api.put('/order', function(req, res){
                 updatedBy : req.body.updatedBy,
                 status : req.body.status
             })
-            .then(function(){
+            .then(data => {
                 var response = new res.Response(true, 200, 'Success updating data.', null, null);
                 res.status(200).json(response.getResponse());
-            }).catch(function(err){
+            }).catch(err => {
                 var response = new res.Response(false, 400, null, 'Failed to update data.', err)
                 res.status(400).json(response.getResponse());
             });
+        }).catch(err => {
+            var response = new res.Response(false, 400, null, 'Error get data from database.', err)
+            res.status(400).json(response.getResponse());
         })
     }
 })

@@ -8,9 +8,9 @@ var UserSchema = mongoose.Schema({
     password: { type: String, required: true },
     active: { type: Boolean, required: true },
     message: { type: String, required: true },
-    createdAt: { type: Number, required: true },
+    createdAt: { type: String, required: true },
     createdBy: { type: String, required: true },
-    updatedAt: { type: Number, required: true },
+    updatedAt: { type: String, required: true },
     updatedBy: { type: String, required: true },
 })
 
@@ -24,9 +24,9 @@ var MenuSchema = mongoose.Schema({
     active: { type: Boolean, required: true },
     ready: { type: Boolean, required: true },
     image: { type: String, required: true },
-    createdAt: { type: Number, required: true },
+    createdAt: { type: String },
     createdBy: { type: String, required: true },
-    updatedAt: { type: Number, required: true },
+    updatedAt: { type: String },
     updatedBy: { type: String, required: true },
 })
 
@@ -49,9 +49,9 @@ var OrderSchema = mongoose.Schema({
         lat: { type: Number, required: true },
         lng: { type: Number, required: true },
     },
-    createdAt: { type: Number },
+    createdAt: { type: String },
     createdBy: { type: String, required: true },
-    updatedAt: { type: Number },
+    updatedAt: { type: String },
     updatedBy: { type: String, required: true }
 })
 

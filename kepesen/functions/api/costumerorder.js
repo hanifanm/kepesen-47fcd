@@ -2,12 +2,6 @@ const api = require('express').Router();
 const moment = require('moment');
 const model = require('./model');
 
-const asyncMiddleware = fn =>
-  (req, res, next) => {
-    Promise.resolve(fn(req, res, next))
-      .catch(next);
-  };
-
 const OrderStatus = {
     create : 1,
     order : 2,
@@ -32,7 +26,7 @@ const countPrice = function(list, menus){
     return totalPrice;
 }
 
-api.post('/costumerorder', asyncMiddleware(function(req, res, next){
+api.post('/costumerorder', function(req, res){
     new model.Order(req.body).validate(function(err){
         if(err === null || err === undefined){
 
@@ -57,22 +51,22 @@ api.post('/costumerorder', asyncMiddleware(function(req, res, next){
             res.status(400).json(response.getResponse());
         }
     })
-}))
+})
 
-api.put('/costumerorder', asyncMiddleware(function(req, res){
+api.put('/costumerorder', function(req, res){
     if (!req.body.id || req.body.id==='' 
     || !req.body.updatedBy || req.body.updatedBy===''
     || !req.body.status || req.body.status==='') {
-        var response = new res.Response(false, 400, null, 'Request body doesnt match.', err)
+        var response = new res.Response(false, 400, null, 'Request body doesnt match.', null)
         res.status(400).json(response.getResponse());
     } else if (req.body.status != OrderStatus.cancel) {
-        var response = new res.Response(false, 400, null, 'Unauthorized to do this operation.', err)
+        var response = new res.Response(false, 401, null, 'Unauthorized to do this operation.', null)
         res.status(400).json(response.getResponse());
     } else {
 
         req.firebase.database().ref('order/'+req.body.id).once('value').then(order => {
             
-            if(order.val()===null){
+            if(order.val()==null){
                 var response = new res.Response(false, 400, null, 'Data with this id doesnt exist.', err)
                 res.status(400).json(response.getResponse());
             }
@@ -82,16 +76,19 @@ api.put('/costumerorder', asyncMiddleware(function(req, res){
                 updatedBy : req.body.updatedBy,
                 status : req.body.status
             })
-            .then(function(){
+            .then(data => {
                 var response = new res.Response(true, 200, 'Success updating data.', null, null);
                 res.status(200).json(response.getResponse());
-            }).catch(function(err){
+            }).catch(err => {
                 var response = new res.Response(false, 400, null, 'Failed to update data.', err)
                 res.status(400).json(response.getResponse());
             });
+        }).catch(err => {
+            var response = new res.Response(false, 400, null, 'Error get data from database.', err)
+            res.status(400).json(response.getResponse());
         })
     }
-}))
+})
 
 api.get('/costumerorder', function(req, res){
     if(!req.query.userId){
