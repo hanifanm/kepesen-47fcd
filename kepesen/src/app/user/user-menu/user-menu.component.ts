@@ -33,6 +33,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   onOrder = (menu : MenuModel) => {
+    if(!menu.ready) return;
     this.currentPlate = new PlateModel();
     this.currentPlate.menuId = menu.id;
     this.menuService.current = menu;

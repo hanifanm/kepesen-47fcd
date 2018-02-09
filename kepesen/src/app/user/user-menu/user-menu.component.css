@@ -23,7 +23,24 @@
 }
 
 .menu-card:hover {
+    background-color: rgba(200,200,200,1)
+}
+
+.menu-blur {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-color: rgba(0,0,0,0.1)
+}
+
+.not-ready-label {
+    color: red;
+    font-size: 20px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
 }
 
 .menu-image {

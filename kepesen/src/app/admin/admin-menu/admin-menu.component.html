@@ -3,4 +3,7 @@
   [model]="table"
   [loading]="menuService.isLoading"
   [(onRefresh)]="onRefreshTable"
+  [(rowAction)]="rowAction"
+  [(onActionIncluded)]="onActionIncluded"
+  [(onRowAction)]="onRowAction"
 ></app-table>
