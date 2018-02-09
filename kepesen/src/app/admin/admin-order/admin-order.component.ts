@@ -54,8 +54,20 @@ export class AdminOrderComponent implements OnInit {
   ]
 
   rowAction : IRowAction[] =[
-    { label : 'View', key : 'view' }
+    { label : 'View', key : 'view' },
+    { label : 'UpdateStatus', key : 'update' }
   ]
+
+  onActionIncluded = (key : string, data : IOrder) => {
+    if(key==='update'){
+      if(data.status === OrderStatus.cancel
+      || data.status === OrderStatus.time_out
+      || data.status === OrderStatus.receive
+      || data.status === OrderStatus.user_not_exist
+      || data.status === OrderStatus.reject) return false;
+    }
+    return true;
+  }
 
   onRowAction = (key : string, data : IOrder) => {
     switch(key){

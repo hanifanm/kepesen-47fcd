@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-option-horizontal" data-toggle="dropdown">
           </span>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li *ngFor="let ra of rowAction"
+            <li *ngFor="let ra of selectedRowAction(c)"
               (click)="onRowAction(ra.key, c)"
             >
               <a>{{ra.label}}</a>

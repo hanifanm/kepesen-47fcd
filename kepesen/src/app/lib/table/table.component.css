@@ -10,7 +10,7 @@
     cursor: pointer;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu > li > div> a {
     font-size: 17px !important;
 }
 

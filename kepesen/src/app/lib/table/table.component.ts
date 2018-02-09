@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
   @Input() collections: any[];
   @Input() rowAction: IRowAction[];
   @Input() onRowAction: any;
+  @Input() onActionIncluded: any;
   @Input() onRefresh: any;
   @Input() loading: boolean;
 
@@ -30,6 +31,13 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  selectedRowAction = (data : any) => {
+    return this.rowAction.filter((ra : IRowAction) => {
+      if(!this.onActionIncluded) return true;
+      else return this.onActionIncluded(ra.key, data);
+    });
   }
 
   getCollectionsFiltered() {
