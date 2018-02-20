@@ -21,6 +21,7 @@ export class UserOrderComponent implements OnInit {
   isMapOpen : boolean = false;
   isError : boolean = false;
   errorMessage : string = '';
+  isOrderButtonDisabled : boolean = false;
   isDeleteDialogShow : boolean = false;
   isSubmitDialogShow : boolean = false;
   tempPlate : PlateModel;
@@ -63,6 +64,10 @@ export class UserOrderComponent implements OnInit {
       totalPrice += p.price;
     })
     return totalPrice;
+  }
+
+  onAddOrder(){
+    this.router.navigateByUrl('user/menu');
   }
 
   onClickOrder(){
@@ -113,6 +118,7 @@ export class UserOrderComponent implements OnInit {
   }
 
   onSendOrder = () => {
+    this.isOrderButtonDisabled = true;
     this.orderService.create(this.newOrder)
     .then( (res : any) => {
       this.orderService.newOrder = null;

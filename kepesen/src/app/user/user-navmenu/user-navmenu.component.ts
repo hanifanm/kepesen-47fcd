@@ -21,12 +21,12 @@ export class UserNavmenuComponent implements OnInit {
         {
           icon : 'glyphicon glyphicon-user',
           path : '/user/order',
-          label : 'Order'
+          label : 'Pesan'
         },
         {
           icon : 'glyphicon glyphicon-user',
           path : '/user/history',
-          label : 'History'
+          label : 'Histori'
         }
       ]
   }

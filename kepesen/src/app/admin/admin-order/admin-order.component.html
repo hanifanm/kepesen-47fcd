@@ -1,7 +1,7 @@
 <app-table
-  [collections]="orderService.collections"
+  [collections]="getOrderCollections()"
   [model]="table"
-  [loading]="orderService.isLoading"
+  [loading]="orderService.isLoading || menuService.isLoading"
   [rowAction]="rowAction"
   [(onRowAction)]="onRowAction"
   [(onRefresh)]="onRefreshTable"
@@ -9,6 +9,52 @@
 ></app-table>
 
 <app-dialog *ngIf="isViewDialogShow" [(onCancel)]="onCloseDialog" title="Detail Pesanan">
+  <h5>DATA PEMESAN</h5>
+  <table class="costumer-data">
+    <tr>
+      <td class="order-label"><strong>ID</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{orderService.current.id}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Nama Penerima</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{orderService.current.recName}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Alamat Pengiriman</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{orderService.current.recAddress}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Nomor Telepon</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{orderService.current.recPhone}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Banyaknya Item</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{orderService.current.list.length}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Waktu Pemesanan</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{getDate(orderService.current.createdAt)}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Harga</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{orderService.current.price}}</td>
+    </tr>
+    <tr>
+      <td class="order-label"><strong>Status</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{getStatusString(orderService.current)}}</td>
+    </tr>
+  </table>
+
+  <hr/>
+  <h5>DATA PESANAN</h5>
   <div *ngFor="let p of orderService.current.list">
     <table>
       <tr>
@@ -45,16 +91,16 @@
   </div>
   <button *ngIf="orderService.current.status === 5"
     type="button" class="btn btn-success pull-right"
-    (click)="onChangeStatus(9)">Finish</button>
+    (click)="onChangeStatus(9)">Selesai</button>
   <button *ngIf="orderService.current.status === 5"
     type="button" class="btn btn-danger pull-right"
-    (click)="onChangeStatus(8)">User Not Exist</button>
+    (click)="onChangeStatus(8)">Costumer Tidak Ditemukan</button>
   <button *ngIf="orderService.current.status === 4"
     type="button" class="btn btn-success pull-right"
-    (click)="onChangeStatus(5)">Deliver</button>
+    (click)="onChangeStatus(5)">Antar</button>
   <button *ngIf="orderService.current.status === 3"
     type="button" class="btn btn-success pull-right"
-    (click)="onChangeStatus(4)">Assign</button>
+    (click)="onChangeStatus(4)">Tugaskan ke Driver</button>
   <button *ngIf="orderService.current.status === 1"
     type="button" class="btn btn-success pull-right"
     (click)="onChangeStatus(3)">Proses</button>

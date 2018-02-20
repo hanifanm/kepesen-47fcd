@@ -41,6 +41,11 @@
   </table>
 </div>
 
+<button type="button" class="btn btn-info btn-lg btn-block ripple btn-add-order"
+  (click)="onAddOrder()">
+  <span class="glyphicon glyphicon-plus"></span> TAMBAH PESANAN
+</button>
+
 <div class="card-box">
   <div class="form-group">
     <label>Total Harga:</label>
@@ -67,7 +72,7 @@
   </div>
   <button type="button" class="btn btn-default btn-lg btn-block ripple"
     (click)="onToggleMap()"
-    >{{isMapOpen? "CLOSE MAP" : "OPEN MAP"}}</button>
+    >{{isMapOpen? "TUTUP PETA" : "BUKA PETA"}}</button>
   <br/>
   <div class="form-group" *ngIf="isMapOpen">
     <agm-map
@@ -96,7 +101,9 @@
   <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
   <button type="button" class="btn btn-success btn-lg btn-block ripple"
     [disabled]="!isOrderValid()"
-    (click)="onClickOrder()">PESAN</button>
+    (click)="onClickOrder()">
+    PESAN <span class="glyphicon glyphicon-shopping-cart"></span>
+  </button>
 </div>
 
 <app-user-plate *ngIf="isPlateShown()"
@@ -108,12 +115,17 @@
 
 <app-dialog *ngIf="isDeleteDialogShow" [(onCancel)]="onCloseDialog" title="Hapus Menu">
   <h5>Apakah anda yakin?</h5>
-  <button type="button" class="btn btn-danger pull-right" (click)="onDeletePlate()">Hapus</button>
-  <button type="button" class="btn btn-default pull-right" (click)="onCloseDialog()">Kembali</button>
+  <button type="button" class="btn btn-danger pull-right dialog-button"
+    (click)="onDeletePlate()">Hapus</button>
+  <button type="button" class="btn btn-default pull-right dialog-button"
+    (click)="onCloseDialog()">Kembali</button>
 </app-dialog>
 
 <app-dialog *ngIf="isSubmitDialogShow" [(onCancel)]="onCloseDialog" title="Pesan Sekarang">
   <h5>Pastikan data yang anda isikan sudah benar</h5>
-  <button type="button" class="btn btn-success pull-right" (click)="onSendOrder()">Pesan</button>
-  <button type="button" class="btn btn-default pull-right" (click)="onCloseDialog()">Kembali</button>
+  <button type="button" class="btn btn-success pull-right dialog-button"
+    [disabled]="isOrderButtonDisabled"
+    (click)="onSendOrder()">Pesan</button>
+  <button type="button" class="btn btn-default pull-right dialog-button"
+    (click)="onCloseDialog()">Kembali</button>
 </app-dialog>

@@ -15,6 +15,10 @@ export class AdminLayoutComponent implements OnInit {
     {
       label : "ORDER",
       path: '/admin/order'
+    },
+    {
+      label : "ACCOUNT",
+      path: '/admin/account'
     }
   ]
 

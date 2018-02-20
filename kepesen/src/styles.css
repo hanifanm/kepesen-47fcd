@@ -39,3 +39,8 @@ body {
     padding: 10px;
     border-radius: 3px;
 }
+
+.dialog-button {
+    margin-left: 3px;
+    margin-right: 3px;
+}

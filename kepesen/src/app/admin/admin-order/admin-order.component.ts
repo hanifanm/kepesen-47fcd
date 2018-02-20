@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderStatus, OrderModel, IOrder } from '../../model/costumerorder.service';
+import { OrderStatus, OrderModel, IOrder, orderStatusString } from '../../model/costumerorder.service';
 import { OrderService } from '../../model/order.service';
 import { ITableProp, IRowAction } from '../../lib/table/table.component';
 import { MenuModel, MenuService } from '../../model/menu.service';
@@ -21,7 +21,6 @@ export class AdminOrderComponent implements OnInit {
     this.initModel();
     let order = new OrderModel();
     order.createdAt = '201806012359123';
-    console.log(order.createdTime);
   }
 
   ngOnInit() {
@@ -50,14 +49,26 @@ export class AdminOrderComponent implements OnInit {
     }
   }
 
+
+  getOrderCollections = () => {
+    return this.orderService.collections.map(order => {
+      return {
+        ...order,
+        statusString : orderStatusString(order),
+        itemLength : order.list.length
+      }
+    });
+  }
+
   onRefreshTable = async() => {
     await this.orderService.fetch();
   }
 
   table : ITableProp[]=  [
-    { label : 'Name', key : 'recName' },
-    { label : 'Price', key : 'price' },
-    { label : 'Status', key : 'status' }
+    { label : 'Nama', key : 'recName' },
+    { label : 'Harga', key : 'price' },
+    { label : 'Item', key : 'itemLength' },
+    { label : 'Status', key : 'statusString' }
   ]
 
   rowAction : IRowAction[] =[
@@ -110,6 +121,21 @@ export class AdminOrderComponent implements OnInit {
     let m2 = parseInt(time2.substring(10, 12));
     let diff = (h1-h2)*60 + m1 - m2;
     return diff;
+  }
+
+  getDate = (stringDate : string) : string=> {
+    if(stringDate==='') return '';
+    let year = parseInt(stringDate.substring(0, 4));
+    let month = parseInt(stringDate.substring(4, 6))-1;
+    let day = parseInt(stringDate.substring(6, 8));
+    let hours = parseInt(stringDate.substring(8, 10));
+    let minutes = parseInt(stringDate.substring(10, 12));
+    let createdTime = new Date(year, month, day, hours, minutes);
+    return moment(createdTime).format('DD/MM/YYYY HH:mm');
+  }
+
+  getStatusString = (order : OrderModel) => {
+    return orderStatusString(order);
   }
 
 }

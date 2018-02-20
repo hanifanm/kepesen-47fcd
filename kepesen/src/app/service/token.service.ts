@@ -13,7 +13,7 @@ export class TokenService {
   }
 
   getToken = async() => {
-    if(this.token) return this.token;
+    if(this.token && this.token!=='') return this.token;
     let tempToken = await this.idbService.get('token');
     this.token = tempToken? tempToken : '';
     return this.token;

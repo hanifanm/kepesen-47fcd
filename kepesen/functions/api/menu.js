@@ -58,16 +58,16 @@ api.put('/menu', function(req, res){
         var response = new res.Response(false, 400, null, 'Request body doesnt match.', null)
         res.status(400).json(response.getResponse());
     } else {
-        req.firebase.database().ref('menu/'+req.body.id).once('value').then(order => {
-            if(order.val()==null){
+        req.firebase.database().ref('menu/'+req.body.id).once('value').then(menu => {
+            if(menu.val()==null){
                 var response = new res.Response(false, 400, null, 'Data with this id doesnt exist.', err)
                 res.status(400).json(response.getResponse());
             }
-
             req.firebase.database().ref('menu/'+req.body.id).update({
                 updatedAt : moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS'),
                 updatedBy : req.body.updatedBy,
-                ready : req.body.ready
+                ready : req.body.ready,
+                active : req.body.active!=null? req.body.active : menu.val().active
             }).then(data => {
                 var response = new res.Response(true, 200, 'Success updating data.', null, null);
                 res.status(200).json(response.getResponse());

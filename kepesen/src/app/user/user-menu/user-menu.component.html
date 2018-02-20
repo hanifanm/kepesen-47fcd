@@ -1,4 +1,4 @@
-<div class="group-menu">
+<div class="card-box">
   <span class="group-title">Makanan Berat</span>
   <app-loading *ngIf="menuService.isLoading"></app-loading>
   <div *ngFor="let menu of getMenu(1)">
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="group-menu">
+<div class="card-box">
   <span class="group-title">Topping</span>
   <app-loading *ngIf="menuService.isLoading"></app-loading>
   <div *ngFor="let menu of getMenu(2)">
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div class="group-menu">
+<div class="card-box">
   <span class="group-title">Lain-lain</span>
   <app-loading *ngIf="menuService.isLoading"></app-loading>
   <div *ngFor="let menu of getMenu(3)">

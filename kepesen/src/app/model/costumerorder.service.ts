@@ -18,6 +18,20 @@ export const OrderStatus = {
     time_out : 10
 }
 
+export function orderStatusString(order : IOrder){
+  switch(order.status){
+    case 1 : return 'Menuggu Konfirmasi';
+    case 3 : return 'Sedang Dimasak';
+    case 4 : return 'Akan Diantar';
+    case 5 : return 'Sedang Diantar';
+    case 6 : return 'Dibatalkan oleh Costumer';
+    case 7 : return 'Ditolak';
+    case 8 : return 'Costumer Tidak Ditemukan';
+    case 9 : return 'Diterima oleh Costumer';
+    case 10 : return 'Waktu Habis';
+  }
+}
+
 interface Location {
   lat : number,
   lng : number
@@ -38,17 +52,6 @@ export class OrderModel {
     public updatedBy : string = '';
 
     constructor(){ }
-
-    get createdTime() : string {
-      if(this.createdAt==='') return '';
-      let year = parseInt(this.createdAt.substring(0, 4));
-      let month = parseInt(this.createdAt.substring(4, 6));
-      let day = parseInt(this.createdAt.substring(6, 8));
-      let hours = parseInt(this.createdAt.substring(8, 10));
-      let minutes = parseInt(this.createdAt.substring(10, 12));
-      let createdTime = new Date(year, month, day, hours, minutes);
-      return moment(createdTime).format('DD/MM/YYYYY HH:mm');
-    }
 
 }
 

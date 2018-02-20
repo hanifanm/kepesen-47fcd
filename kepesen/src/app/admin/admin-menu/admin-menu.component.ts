@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IMenu, MenuModel, MenuService } from '../../model/menu.service';
+import { UserService } from '../../service/user.service';
 import { ITableProp, IRowAction } from '../../lib/table/table.component';
 
 @Component({
@@ -10,7 +11,8 @@ import { ITableProp, IRowAction } from '../../lib/table/table.component';
 export class AdminMenuComponent implements OnInit {
 
   constructor(
-    private menuService: MenuService
+    private menuService: MenuService,
+    private user: UserService
   ) {
     this.initModel();
   }
@@ -38,26 +40,52 @@ export class AdminMenuComponent implements OnInit {
 
   rowAction: IRowAction[] = [
     { label: 'Set Ready', key: 'ready' },
-    { label: 'Set Habis', key: 'not_ready' }
+    { label: 'Set Habis', key: 'not_ready' },
+    { label: 'Aktifkan', key: 'activate' },
+    { label: 'Nonaktifkan', key: 'deactivate' }
   ]
 
   onRowAction = (key: string, data: IMenu) => {
     switch (key) {
       case 'ready':
         this.menuService.current = data;
-        this.updateReadyStatus(true);
+        this.toggleReadyStatus(data);
         break;
       case 'not_ready':
         this.menuService.current = data;
-        this.updateReadyStatus(false);
+        this.toggleReadyStatus(data);
+        break;
+      case 'activate':
+        this.menuService.current = data;
+        this.toggleActiveStatus(data);
+        break;
+      case 'deactivate':
+        this.menuService.current = data;
+        this.toggleActiveStatus(data);
         break;
     }
   }
 
-  updateReadyStatus = (status: boolean) => {
+  toggleReadyStatus = async (data: IMenu) => {
+    let username = await this.user.getUsername();
     this.menuService.update({
-      updatedBy: 'mock_admin',
-      ready: status,
+      updatedBy: username,
+      ready: !data.ready,
+      active: data.active,
+      id: this.menuService.current.id
+    }).then((res: any) => {
+      this.menuService.fetch();
+    }).catch((err: any) => {
+      console.log(err);
+    })
+  }
+
+  toggleActiveStatus = async (data: IMenu) => {
+    let username = await this.user.getUsername();
+    this.menuService.update({
+      updatedBy: username,
+      ready: data.ready,
+      active: !data.active,
       id: this.menuService.current.id
     }).then((res: any) => {
       this.menuService.fetch();
@@ -69,6 +97,8 @@ export class AdminMenuComponent implements OnInit {
   onActionIncluded = (key: string, data: IMenu) => {
     if (key === 'ready' && data.ready) return false;
     if (key === 'not_ready' && !data.ready) return false;
+    if (key === 'activate' && data.active) return false;
+    if (key === 'deactivate' && !data.active) return false;
     return true;
   }
 

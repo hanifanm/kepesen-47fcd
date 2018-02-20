@@ -7,14 +7,6 @@
     font-size: 20px;
 }
 
-.group-menu {
-    margin: 10px 0;
-    background-color: white;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
-    padding: 10px;
-    border-radius: 3px;
-}
-
 .menu-card {
     border-bottom: 0.5px solid gray;
     padding: 5px;

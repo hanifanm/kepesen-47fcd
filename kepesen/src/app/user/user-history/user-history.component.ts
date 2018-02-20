@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { CostumerOrderService, OrderStatus, OrderModel } from '../../model/costumerorder.service';
+import { CostumerOrderService, OrderStatus, OrderModel, orderStatusString } from '../../model/costumerorder.service';
 import { IdbService } from '../../service/idb.service';
 import { MenuModel, MenuService } from '../../model/menu.service';
 import { HttpParams } from '@angular/common/http';
@@ -102,18 +102,19 @@ export class UserHistoryComponent implements OnInit {
     return diff;
   }
 
+  getDate = (stringDate : string) : string=> {
+    if(stringDate==='') return '';
+    let year = parseInt(stringDate.substring(0, 4));
+    let month = parseInt(stringDate.substring(4, 6))-1;
+    let day = parseInt(stringDate.substring(6, 8));
+    let hours = parseInt(stringDate.substring(8, 10));
+    let minutes = parseInt(stringDate.substring(10, 12));
+    let createdTime = new Date(year, month, day, hours, minutes);
+    return moment(createdTime).format('DD/MM/YYYY HH:mm');
+  }
+
   getStatusString = (order : OrderModel) => {
-    switch(order.status){
-      case 1 : return 'Menuggu konfirmasi.';
-      case 3 : return 'Pesanan sedang diproses.';
-      case 4 : return 'Pesanan akan dikirimkan.';
-      case 5 : return 'Pesanan sedang dikirmkan.';
-      case 6 : return 'Pesanan dibatalkan oleh pembeli.';
-      case 7 : return 'Pesanan ditolak.';
-      case 8 : return 'Pemesan tidak ditemukan di lokasi.';
-      case 9 : return 'Pesanan diterima pembeli.';
-      case 10 : return 'Waktu Habis, pesanan dibatalkan secara otomatis.';
-    }
+    return orderStatusString(order);
   }
 
   getStatusColor = (order : OrderModel) => {

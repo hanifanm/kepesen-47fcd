@@ -37,6 +37,7 @@ import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { TableComponent } from './lib/table/table.component';
+import { AdminAccountComponent } from './admin/admin-account/admin-account.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { TableComponent } from './lib/table/table.component';
     AdminOrderComponent,
     AdminMenuComponent,
     AdminLoginComponent,
-    TableComponent
+    TableComponent,
+    AdminAccountComponent
   ],
   imports: [
     BrowserModule,

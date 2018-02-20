@@ -49,7 +49,7 @@ implements IBaseService<IMenu>{
 
   getMenu(group : number) : MenuModel[] {
     return this.collections.filter((m : MenuModel) => {
-      return m.group === group;
+      return m.active && m.group === group;
     })
   }
 

@@ -28,6 +28,17 @@
     left: 20px;
     right: 20px;
     bottom: 10px;
+    text-align: center;
+}
+
+.action-button > .btn-container {
+    width: 49%;
+    display: inline-block;
+}
+
+.action-button > .btn-container > .btn {
+    width: 90%;
+    margin: 0 auto;
 }
 
 .btn-chili {

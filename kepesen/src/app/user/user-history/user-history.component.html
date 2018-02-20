@@ -34,6 +34,11 @@
       <td class="order-value">{{order.list.length}}</td>
     </tr>
     <tr>
+      <td class="order-label"><strong>Waktu Pemesanan</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{getDate(order.createdAt)}}</td>
+    </tr>
+    <tr>
       <td class="order-label"><strong>Harga</strong></td>
       <td><strong>:</strong></td>
       <td class="order-value">{{order.price}}</td>
@@ -91,8 +96,8 @@
 
 <app-dialog *ngIf="isCancelDialogShow" [(onCancel)]="onCloseDialog" title="Batalkan Pesanan">
   <h5>Apakah anda yakin?</h5>
-  <button type="button" class="btn btn-danger pull-right"
+  <button type="button" class="btn btn-danger pull-right dialog-button"
     (click)="onCancelOrder()">Batalkan</button>
-  <button type="button" class="btn btn-default pull-right"
+  <button type="button" class="btn btn-default pull-right dialog-button"
     (click)="onCloseDialog()">Kembali</button>
 </app-dialog>

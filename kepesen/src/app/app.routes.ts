@@ -9,6 +9,7 @@ import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.componen
 import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { AdminAccountComponent } from './admin/admin-account/admin-account.component';
 
 export const routes : Routes = [
     { 
@@ -60,6 +61,11 @@ export const routes : Routes = [
             {
                 path: 'order',
                 component: AdminOrderComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: 'account',
+                component: AdminAccountComponent,
                 pathMatch: 'full'
             }
         ]
