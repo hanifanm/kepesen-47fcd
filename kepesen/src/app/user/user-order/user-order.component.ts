@@ -16,6 +16,7 @@ export class UserOrderComponent implements OnInit {
   newOrder : OrderModel;
   currentPlate : PlateModel;
   currentPlateIndex : number;
+  recBenchmark : string = '';
   lat: number;
   lng: number;
   isMapOpen : boolean = false;
@@ -52,6 +53,7 @@ export class UserOrderComponent implements OnInit {
     let userId = await this.idbService.getUserId();
     this.newOrder.createdBy = userId.toString();
     this.newOrder.updatedBy = userId.toString();
+    this.recBenchmark = '';
   }
 
   getMenuDetail(id : string) : MenuModel {
@@ -93,8 +95,11 @@ export class UserOrderComponent implements OnInit {
     if(this.newOrder.recPhone === ''){
       error = 'Nomor Telepon Penerima wajib diisi.'
     }
-    if(this.newOrder.recAddress.length<30){
-      error = "Alamat Pengiriman minimum 30 karakter."
+    if(this.recBenchmark === ''){
+      error = "Patokan wajib diisi."
+    }
+    if(this.newOrder.recAddress === ''){
+      error = "Alamat Pengiriman wajib diisi."
     }
     if(this.newOrder.recAddress === ''){
       error = 'Alamat Pengiriman wajib diisi.'
@@ -119,6 +124,7 @@ export class UserOrderComponent implements OnInit {
 
   onSendOrder = () => {
     this.isOrderButtonDisabled = true;
+    this.newOrder.recAddress += '; ' + this.recBenchmark;
     this.orderService.create(this.newOrder)
     .then( (res : any) => {
       this.orderService.newOrder = null;

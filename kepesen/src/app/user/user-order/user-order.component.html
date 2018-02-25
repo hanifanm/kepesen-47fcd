@@ -56,8 +56,13 @@
     <input type="text" class="form-control" [(ngModel)]="newOrder.recName">
   </div>
   <div class="form-group">
-    <label>Alamat Pengiriman dan Patokan:</label>
-    <textarea rows="3" class="form-control" [(ngModel)]="newOrder.recAddress">
+    <label>Alamat Pengiriman:</label>
+    <textarea rows="2" class="form-control" [(ngModel)]="newOrder.recAddress">
+    </textarea>
+  </div>
+  <div class="form-group">
+    <label>Patokan:</label>
+    <textarea rows="2" class="form-control" [(ngModel)]="recBenchmark">
     </textarea>
   </div>
   <div class="form-group">
