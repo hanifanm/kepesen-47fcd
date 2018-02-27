@@ -35,7 +35,7 @@ api.put('/order', function(req, res){
                 updatedAt : moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS'),
                 updatedBy : req.body.updatedBy,
                 status : req.body.status,
-                message : req.body.message
+                message : req.body.message? req.body.message : ''
             })
             .then(data => {
                 var response = new res.Response(true, 200, 'Success updating data.', null, null);
