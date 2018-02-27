@@ -1,7 +1,7 @@
 <div class="form-group table-header">
-  <button *ngIf="onRefresh" class="btn btn-default" type="button" (click)="onRefresh()">
-    <!--<span class="glyphicon glyphicon-refresh"></span>-->
-    Refresh
+  <ng-content></ng-content>
+  <button *ngIf="onRefresh" class="btn btn-default pull-right" type="button" (click)="onRefresh()">
+    <span class="glyphicon glyphicon-refresh"></span>
   </button>
   <input type="text" class="form-control filter pull-right"
   placeholder="Filter" [(ngModel)]="filter">

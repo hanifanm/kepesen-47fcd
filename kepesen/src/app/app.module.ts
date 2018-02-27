@@ -38,6 +38,7 @@ import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { TableComponent } from './lib/table/table.component';
 import { AdminAccountComponent } from './admin/admin-account/admin-account.component';
+import { AdminMenuFormComponent } from './admin/admin-menu-form/admin-menu-form.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AdminAccountComponent } from './admin/admin-account/admin-account.compo
     AdminMenuComponent,
     AdminLoginComponent,
     TableComponent,
-    AdminAccountComponent
+    AdminAccountComponent,
+    AdminMenuFormComponent
   ],
   imports: [
     BrowserModule,

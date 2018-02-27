@@ -5,7 +5,6 @@ export class PlateModel {
   public toppingId : Array<string> = [];
   public price : number = 0;
   public quantity : number = 1;
-  constructor(){}
 }
 
 export interface IPlate {

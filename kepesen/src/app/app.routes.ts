@@ -8,6 +8,7 @@ import { UserOrderComponent } from './user/user-order/user-order.component';
 import { AdminLayoutComponent } from './admin/admin-layout/admin-layout.component';
 import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { AdminMenuFormComponent } from './admin/admin-menu-form/admin-menu-form.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminAccountComponent } from './admin/admin-account/admin-account.component';
 
@@ -56,6 +57,16 @@ export const routes : Routes = [
             {
                 path: 'menu',
                 component: AdminMenuComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: 'menu/create',
+                component: AdminMenuFormComponent,
+                pathMatch: 'full'
+            },
+            {
+                path: 'menu/:menu_id/edit',
+                component: AdminMenuFormComponent,
                 pathMatch: 'full'
             },
             {

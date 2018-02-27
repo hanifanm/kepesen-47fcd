@@ -4,28 +4,26 @@ import { BaseService, IBaseService } from '../service/base.service';
 import HashMap from 'hashmap';
 
 export class MenuModel {
-  constructor(
-    public id : string,
-    public group : number,
-    public name : string,
-    public sambal : [string],
-    public price : number,
-    public price2 : number,
-    public active : boolean,
-    public ready : boolean,
-    public image : string,
-    public createdAt : number,
-    public createdBy : string,
-    public updatedAt : number,
-    public updatedBy : string
-  ){}
+  public id : string;
+  public group : number;
+  public name : string;
+  public sambal : Array<string>;
+  public price : number;
+  public price2 : number;
+  public active : boolean;
+  public ready : boolean;
+  public image : string;
+  public createdAt : number;
+  public createdBy : string;
+  public updatedAt : number;
+  public updatedBy : string
 }
 
 export interface IMenu {
   id : string,
   group : number,
   name : string,
-  sambal : [string],
+  sambal : Array<string>,
   price : number,
   price2 : number,
   active : boolean,

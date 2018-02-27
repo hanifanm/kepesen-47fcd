@@ -1,0 +1,11 @@
+.sambal {
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+    border-radius : 5px;
+    background-color: #eee;
+    display: inline-block;
+}
+
+.form-action {
+    text-align: right;
+}

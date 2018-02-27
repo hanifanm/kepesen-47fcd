@@ -73,4 +73,17 @@ export class BaseService<T> {
         })
     }
 
+    remove(params?: HttpParams) {
+        return new Promise((resolve) => {
+            this.apiService.delete(this.apiName, params)
+                .then((data: any) => {
+                    resolve();
+                })
+                .catch((error: any) => {
+                    this.lastError = error;
+                    resolve();
+                })
+        })
+    }
+
 }

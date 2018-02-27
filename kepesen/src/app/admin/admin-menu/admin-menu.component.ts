@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IMenu, MenuModel, MenuService } from '../../model/menu.service';
 import { UserService } from '../../service/user.service';
 import { ITableProp, IRowAction } from '../../lib/table/table.component';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-menu',
@@ -10,9 +12,12 @@ import { ITableProp, IRowAction } from '../../lib/table/table.component';
 })
 export class AdminMenuComponent implements OnInit {
 
+  isDeleteDialogShow : boolean = false;
+
   constructor(
     private menuService: MenuService,
-    private user: UserService
+    private user: UserService,
+    private router: Router
   ) {
     this.initModel();
   }
@@ -21,6 +26,9 @@ export class AdminMenuComponent implements OnInit {
     if (this.menuService.collections.length === 0) {
       try {
         await this.menuService.fetch();
+        this.menuService.collections.sort((a, b) => {
+          return a.group-b.group
+        })
       } catch (err) {
         console.log(err);
       }
@@ -31,49 +39,52 @@ export class AdminMenuComponent implements OnInit {
   }
 
   table: ITableProp[] = [
-    { label: 'Name', key: 'name' },
-    { label: 'Group', key: 'group' },
-    { label: 'Price', key: 'price' },
-    { label: 'Active', key: 'active' },
-    { label: 'Ready', key: 'ready' },
+    { label: 'Nama', key: 'name' },
+    { label: 'Grup', key: 'group' },
+    { label: 'Harga', key: 'price' },
+    { label: 'Aktif', key: 'active' },
+    { label: 'Tersedia', key: 'ready' },
   ]
 
   rowAction: IRowAction[] = [
     { label: 'Set Ready', key: 'ready' },
     { label: 'Set Habis', key: 'not_ready' },
     { label: 'Aktifkan', key: 'activate' },
-    { label: 'Nonaktifkan', key: 'deactivate' }
+    { label: 'Nonaktifkan', key: 'deactivate' },
+    { label: 'Edit', key: 'edit' },
+    { label: 'Delete', key: 'delete' }
   ]
 
   onRowAction = (key: string, data: IMenu) => {
+    this.menuService.current = data;
     switch (key) {
       case 'ready':
-        this.menuService.current = data;
         this.toggleReadyStatus(data);
         break;
       case 'not_ready':
-        this.menuService.current = data;
         this.toggleReadyStatus(data);
         break;
       case 'activate':
-        this.menuService.current = data;
         this.toggleActiveStatus(data);
         break;
       case 'deactivate':
-        this.menuService.current = data;
         this.toggleActiveStatus(data);
+        break;
+      case 'edit':
+        this.router.navigateByUrl(`admin/menu/${data.id}/edit`);
+        break;
+      case 'delete':
+        this.isDeleteDialogShow = true;
         break;
     }
   }
 
   toggleReadyStatus = async (data: IMenu) => {
     let username = await this.user.getUsername();
-    this.menuService.update({
-      updatedBy: username,
-      ready: !data.ready,
-      active: data.active,
-      id: this.menuService.current.id
-    }).then((res: any) => {
+    data.ready = !data.ready;
+    data.updatedBy = username;
+    this.menuService.update(data)
+    .then((res: any) => {
       this.menuService.fetch();
     }).catch((err: any) => {
       console.log(err);
@@ -82,16 +93,22 @@ export class AdminMenuComponent implements OnInit {
 
   toggleActiveStatus = async (data: IMenu) => {
     let username = await this.user.getUsername();
-    this.menuService.update({
-      updatedBy: username,
-      ready: data.ready,
-      active: !data.active,
-      id: this.menuService.current.id
-    }).then((res: any) => {
+    data.active = !data.active;
+    data.updatedBy = username;
+    this.menuService.update(data)
+    .then((res: any) => {
       this.menuService.fetch();
     }).catch((err: any) => {
       console.log(err);
     })
+  }
+
+  onDeleteMenu = async () => {
+    this.onCloseDialog();
+    let params = new HttpParams().set('id', this.menuService.current.id);
+    await this.menuService.remove(params);
+    this.menuService.collections = [];
+    this.initModel();
   }
 
   onActionIncluded = (key: string, data: IMenu) => {
@@ -102,8 +119,18 @@ export class AdminMenuComponent implements OnInit {
     return true;
   }
 
-  onRefreshTable = async () => {
-    await this.menuService.fetch();
+  onRefreshTable = () => {
+    this.menuService.collections = [];
+    this.initModel();
+  }
+
+  onCreate = () => {
+    this.menuService.current = null;
+    this.router.navigateByUrl('admin/menu/create');
+  }
+
+  onCloseDialog = () => {
+    this.isDeleteDialogShow = false;
   }
 
 }

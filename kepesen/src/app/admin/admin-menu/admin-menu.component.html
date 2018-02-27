@@ -1,3 +1,4 @@
+
 <app-table
   [collections]="menuService.collections"
   [model]="table"
@@ -5,5 +6,16 @@
   [(onRefresh)]="onRefreshTable"
   [(rowAction)]="rowAction"
   [(onActionIncluded)]="onActionIncluded"
-  [(onRowAction)]="onRowAction"
-></app-table>
+  [(onRowAction)]="onRowAction">
+  <button type="button" class="btn btn-default" (click)="onCreate()">
+    Buat Baru
+  </button>
+</app-table>
+
+<app-dialog *ngIf="isDeleteDialogShow" [(onCancel)]="onCloseDialog" title="Hapus Menu">
+  <h5>Apakah anda yakin?</h5>
+  <button type="button" class="btn btn-danger pull-right dialog-button"
+    (click)="onDeleteMenu()">Hapus</button>
+  <button type="button" class="btn btn-default pull-right dialog-button"
+    (click)="onCloseDialog()">Kembali</button>
+</app-dialog>

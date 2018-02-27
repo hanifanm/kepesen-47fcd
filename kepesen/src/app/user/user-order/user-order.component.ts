@@ -93,19 +93,19 @@ export class UserOrderComponent implements OnInit {
       error = 'Format nomor telpon salah.'
     }
     if(this.newOrder.recPhone === ''){
-      error = 'Nomor Telepon Penerima wajib diisi.'
+      error = 'Nomor Telepon Penerima harus diisi.'
     }
     if(this.recBenchmark === ''){
-      error = "Patokan wajib diisi."
+      error = "Patokan harus diisi."
     }
     if(this.newOrder.recAddress === ''){
-      error = "Alamat Pengiriman wajib diisi."
+      error = "Alamat Pengiriman harus diisi."
     }
     if(this.newOrder.recAddress === ''){
-      error = 'Alamat Pengiriman wajib diisi.'
+      error = 'Alamat Pengiriman harus diisi.'
     }
     if(this.newOrder.recName === ''){
-      error = 'Nama Penerima wajib diisi.'
+      error = 'Nama Penerima harus diisi.'
     }
     if(this.newOrder.list.length === 0){
       error = 'Pesanan minimal adalah 1. Silakan pilih dari daftar menu.'

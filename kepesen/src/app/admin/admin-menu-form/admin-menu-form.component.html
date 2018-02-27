@@ -1,0 +1,57 @@
+<div class="card-box">
+  <h3>Buat Menu Baru</h3>
+  <hr />
+  <div class="form-group">
+    <label>Nama :</label>
+    <input type="text" class="form-control" [(ngModel)]="menuService.current.name">
+  </div>
+  <div class="form-group">
+    <label>Grup :</label>
+    <select class="form-control" [(ngModel)]="menuService.current.group">
+      <option value=1>Makanan Berat</option>
+      <option value=2>Topping</option>
+      <option value=3>Lain-lain</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Harga :</label>
+    <input type="number" class="form-control" [(ngModel)]="menuService.current.price">
+  </div>
+  <div class="form-group">
+    <label>Harga Sebagai Topping :</label>
+    <input type="number" class="form-control" [(ngModel)]="menuService.current.price2">
+  </div>
+  <div class="form-group">
+    <label>URL Gambar :</label>
+    <input type="text" class="form-control" [(ngModel)]="menuService.current.image">
+  </div>
+  <div class="form-group">
+      <label>Pilihan Sambal :</label>
+      <div *ngFor="let sambal of menuService.current.sambal">
+        <div class="sambal">
+          {{sambal}}
+          <button type="button" class="close" (click)="onDeleteSambal(sambal)">&times;</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="tempSambal" (keydown)="onKeyDown($event)">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit" (click)="onAddSambal()">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        </div>
+      </div>
+  </div>
+  <app-error-panel [active]="isError" [message]="errorMessage"></app-error-panel>
+  <div class="form-action">
+    <button type="button" class="btn btn-default" (click)="onSubmitStart()">SUBMIT</button>
+  </div>
+</div>
+
+<app-dialog *ngIf="isSubmitDialogShow" [(onCancel)]="onCloseDialog" title="Buat Menu Baru">
+  <h5>Apakah anda yakin?</h5>
+  <button type="button" class="btn btn-danger pull-right dialog-button"
+    (click)="onSubmitMenu()">Submit</button>
+  <button type="button" class="btn btn-default pull-right dialog-button"
+    (click)="onCloseDialog()">Kembali</button>
+</app-dialog>
