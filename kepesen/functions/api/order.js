@@ -23,7 +23,7 @@ api.put('/order', function(req, res){
         var response = new res.Response(false, 400, null, 'Request body doesnt match.', null)
         res.status(400).json(response.getResponse());
     } else {
-
+        
         req.firebase.database().ref('order/'+req.body.id).once('value').then(order => {
             
             if(order.val()==null){
@@ -34,7 +34,8 @@ api.put('/order', function(req, res){
             req.firebase.database().ref('order/'+req.body.id).update({
                 updatedAt : moment.utc().add(7, 'hours').format('YYYYMMDDHHmmssSSS'),
                 updatedBy : req.body.updatedBy,
-                status : req.body.status
+                status : req.body.status,
+                message : req.body.message
             })
             .then(data => {
                 var response = new res.Response(true, 200, 'Success updating data.', null, null);
