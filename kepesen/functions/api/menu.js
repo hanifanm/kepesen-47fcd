@@ -82,4 +82,25 @@ api.put('/menu', function(req, res){
     }
 })
 
+api.delete('/menu', function(req, res){
+    if(!req.decoded){
+        next();
+    }
+    if(req.decoded.role != 1){
+        var response = new res.Response(false, 401, null, 'Unauthorized to do this operation.', null)
+        res.status(400).json(response.getResponse());
+    } else if (!req.query.id) {
+        var response = new res.Response(false, 400, null, 'Request params doesnt match.', null)
+        res.status(400).json(response.getResponse());
+    } else {
+        req.firebase.database().ref('menu/'+req.query.id).remove().then(response => {
+            var response = new res.Response(true, 200, 'Success delete data.', null, null);
+            res.status(200).json(response.getResponse());
+        }).catch(err => {
+            var response = new res.Response(false, 400, null, 'Failed to update data.', err)
+            res.status(400).json(response.getResponse());
+        });
+    }
+})
+
 module.exports = api;
