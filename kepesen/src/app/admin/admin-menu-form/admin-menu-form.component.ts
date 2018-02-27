@@ -10,7 +10,7 @@ import { UserService } from '../../service/user.service';
 })
 export class AdminMenuFormComponent implements OnInit {
 
-  tempSambal : string;
+  tempSambal : string = '';
   isError : boolean = false;
   errorMessage : string = '';
   parseInt = parseInt;
@@ -34,6 +34,7 @@ export class AdminMenuFormComponent implements OnInit {
   }
 
   onAddSambal = () => {
+    console.log(this.tempSambal);
     if(this.tempSambal==='') return;
     if(!this.menuService.current.sambal) this.menuService.current.sambal = [];
     this.menuService.current.sambal.push(this.tempSambal);

@@ -13,6 +13,8 @@ import * as moment from 'moment';
 export class AdminOrderComponent implements OnInit {
 
   isViewDialogShow : boolean = false;
+  isConfirmDialogShow : boolean = false;
+  nextStatus : number;
 
   constructor(
     private orderService : OrderService,
@@ -49,7 +51,6 @@ export class AdminOrderComponent implements OnInit {
     }
   }
 
-
   getOrderCollections = () => {
     return this.orderService.collections.map(order => {
       return {
@@ -72,8 +73,7 @@ export class AdminOrderComponent implements OnInit {
   ]
 
   rowAction : IRowAction[] =[
-    { label : 'View', key : 'view' },
-    { label : 'UpdateStatus', key : 'update' }
+    { label : 'View', key : 'view' }
   ]
 
   onActionIncluded = (key : string, data : IOrder) => {
@@ -88,9 +88,9 @@ export class AdminOrderComponent implements OnInit {
   }
 
   onRowAction = (key : string, data : IOrder) => {
+    this.orderService.current = data;
     switch(key){
       case 'view':
-        this.orderService.current = data;
         this.isViewDialogShow = true;
         break;
     }
@@ -98,13 +98,24 @@ export class AdminOrderComponent implements OnInit {
 
   onCloseDialog = () => {
     this.isViewDialogShow = false;
+    this.isConfirmDialogShow = false;
   }
 
   onChangeStatus = (newStatus) => {
+    this.nextStatus = newStatus;
+    this.isViewDialogShow = false;
+    this.isConfirmDialogShow = true;
+  }
+
+  onConfirmChangeStatus = () => {
+    if(this.nextStatus === 7 &&
+    (!this.orderService.current.message || this.orderService.current.message === '')) return;
+    this.isConfirmDialogShow = false;
     this.orderService.update({
       updatedBy: 'admin',
-      status: newStatus,
-      id: this.orderService.current.id
+      status: this.nextStatus,
+      id: this.orderService.current.id,
+      message: this.orderService.current.message
     }).then((res: any) => {
       this.onCloseDialog();
       this.orderService.fetch();
@@ -136,6 +147,14 @@ export class AdminOrderComponent implements OnInit {
 
   getStatusString = (order : OrderModel) => {
     return orderStatusString(order);
+  }
+
+  getNextStatus = () => {
+    if(!this.nextStatus || this.nextStatus===0) return '';
+    return orderStatusString({
+      ...this.orderService.current,
+      status : this.nextStatus
+    })
   }
 
 }

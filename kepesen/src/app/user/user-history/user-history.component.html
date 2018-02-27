@@ -48,6 +48,11 @@
       <td><strong>:</strong></td>
       <td class="order-value">{{getStatusString(order)}}</td>
     </tr>
+    <tr *ngIf="order.status === 7">
+      <td class="order-label"><strong>Pesan</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value">{{order.message? order.message : ""}}</td>
+    </tr>
   </table>
 </div>
 

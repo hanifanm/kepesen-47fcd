@@ -110,3 +110,17 @@
   <button type="button" class="btn btn-default pull-right"
     (click)="onCloseDialog()">Kembali</button>
 </app-dialog>
+
+<app-dialog *ngIf="isConfirmDialogShow" [(onCancel)]="onCloseDialog"
+  title="Update Status => {{getNextStatus()}}">
+  <h5>Apakah anda yakin?</h5>
+  <textarea rows="2" class="form-control" *ngIf="nextStatus === 7"
+    [(ngModel)]="orderService.current.message"
+    placeholder="*Tinggalkan pesan untuk costumer">
+  </textarea>
+  <br />
+  <button type="button" class="btn btn-info pull-right dialog-button"
+    (click)="onConfirmChangeStatus()">Update</button>
+  <button type="button" class="btn btn-default pull-right dialog-button"
+    (click)="onCloseDialog()">Kembali</button>
+</app-dialog>

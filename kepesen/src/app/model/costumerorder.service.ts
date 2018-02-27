@@ -50,7 +50,7 @@ export class OrderModel {
     public createdBy : string = '';
     public updatedAt : string = '';
     public updatedBy : string = '';
-
+    public message : string = '';
     constructor(){ }
 
 }
@@ -68,6 +68,7 @@ export interface IOrder {
     createdBy : string;
     updatedAt : string;
     updatedBy : string;
+    message : string;
 }
 
 @Injectable()
