@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService, MenuModel } from '../../model/menu.service';
+import { StoreService } from '../../model/store.service';
 import { CostumerOrderService, OrderModel, OrderStatus } from '../../model/costumerorder.service';
 import { PlateModel } from '../../model/plate.service';
 import { IdbService } from '../../service/idb.service';
@@ -26,16 +27,15 @@ export class UserOrderComponent implements OnInit {
   isDeleteDialogShow : boolean = false;
   isSubmitDialogShow : boolean = false;
   tempPlate : PlateModel;
-  storeLocation = {
-    lat : -6.880123732861788,
-    lon: 107.61204219265983
-  }
-  maxDist = 2000; //meters
+  storeLocation : any;
+  maxDist : number;
+  deliveryFee : number;
   constructor(
     private orderService : CostumerOrderService,
     private menuService : MenuService,
     private idbService : IdbService,
-    private router : Router
+    private router : Router,
+    private storeService : StoreService
   ) {
     if (this.orderService.newOrder !== null){
       this.newOrder = orderService.newOrder;
@@ -43,6 +43,9 @@ export class UserOrderComponent implements OnInit {
       this.newOrder = new OrderModel();
     }
     this.currentPlate = null;
+    this.storeLocation = storeService.getStoreLocation();
+    this.maxDist = storeService.getStoreMaxDist();
+    this.deliveryFee = storeService.getDeliveryFee();
   }
 
   ngOnInit() {
@@ -65,6 +68,7 @@ export class UserOrderComponent implements OnInit {
     this.newOrder.list.forEach((p)=>{
       totalPrice += p.price;
     })
+    totalPrice += this.deliveryFee;
     return totalPrice;
   }
 
@@ -80,7 +84,7 @@ export class UserOrderComponent implements OnInit {
     }
     let dist = geodist(this.storeLocation, target, {exact : true, unit: 'km'});
     if(dist>this.maxDist/1000){
-      error = 'Jarak pengiriman maksimum 2 KM.'
+      error = 'Lokasi Pengiriman Di Luar Jangkauan.'
     }
     if(this.newOrder.recLocation.lat === 0){
       error = 'Lokasi Pengiriman harus dipilih.'

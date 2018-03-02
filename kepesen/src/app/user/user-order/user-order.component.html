@@ -41,6 +41,16 @@
   </table>
 </div>
 
+<div class="card-box" *ngIf="newOrder.list.length > 0">
+   <table>
+    <tr>
+      <td class="order-label"><strong>Biaya Pengiriman</strong></td>
+      <td><strong>:</strong></td>
+      <td class="order-value"><strong>{{deliveryFee}}</strong></td>
+    </tr>
+  </table>
+</div>
+
 <button type="button" class="btn btn-info btn-lg btn-block ripple btn-add-order"
   (click)="onAddOrder()">
   <span class="glyphicon glyphicon-plus"></span> TAMBAH PESANAN
@@ -73,7 +83,7 @@
   <div class="form-group">
     <label>Lokasi Pengiriman:</label>
     <input type="text" class="form-control" [disabled]="true"
-      value="{{newOrder.recLocation.lat + ', ' + newOrder.recLocation.lat}}">
+      value="{{newOrder.recLocation.lat + ', ' + newOrder.recLocation.lng}}">
   </div>
   <button type="button" class="btn btn-default btn-lg btn-block ripple"
     (click)="onToggleMap()"
@@ -83,7 +93,7 @@
     <agm-map
       [latitude]="lat"
       [longitude]="lng"
-      [zoom]="16"
+      [zoom]="15"
       [fullscreenControl]="true"
       [disableDoubleClickZoom]="true"
       (mapDblClick)="onMapDblClick($event)">

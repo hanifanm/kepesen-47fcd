@@ -12,6 +12,7 @@ import { routes } from './app.routes';
 import { CostumerOrderService } from './model/costumerorder.service';
 import { MenuService } from './model/menu.service';
 import { OrderService } from './model/order.service';
+import { StoreService } from './model/store.service';
 
 import { IdbService } from './service/idb.service';
 import { BaseService } from './service/base.service';
@@ -77,6 +78,8 @@ import { AdminMenuFormComponent } from './admin/admin-menu-form/admin-menu-form.
     MenuService,
     CostumerOrderService,
     OrderService,
+    StoreService,
+
     IdbService,
     ApiService,
     BaseService,

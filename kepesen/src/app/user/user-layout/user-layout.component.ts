@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../../model/store.service';
 
 @Component({
   selector: 'app-user-layout',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserLayoutComponent implements OnInit {
 
-  constructor() { }
+  storeName : string;
+
+  constructor(
+    private storeService : StoreService
+  ) {
+    this.storeName = storeService.getStoreName();
+  }
 
   ngOnInit() {
   }
